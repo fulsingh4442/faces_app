@@ -1,41 +1,45 @@
-import 'dart:core';
+import 'package:club_app/paypal/PaypalServices.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+
+import 'dart:core';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'PaypalServices.dart';
 
-class PaypalPayment extends StatefulWidget {
-
+class payment extends StatefulWidget {
   final Function onFinish;
 
   // PaypalPayment({required this.onFinish});
-  PaypalPayment({this.onFinish});
-
-
+  payment({this.onFinish});
+  //const payment({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return PaypalPaymentState();
-  }
+  State<payment> createState() => _paymentState();
 }
 
-
-class PaypalPaymentState extends State<PaypalPayment> {
+class _paymentState extends State<payment> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-   String checkoutUrl;
+  String checkoutUrl;
   String executeUrl;
-   String accessToken;
+  String accessToken;
   PaypalServices services = PaypalServices();
 
-  // you can change default currency according to your need
-  Map<dynamic,dynamic> defaultCurrency = {"symbol": "USD ", "decimalDigits": 2, "symbolBeforeTheNumber": true, "currency": "USD"};
+  // You may alter the default value to whatever you like.
+  Map<dynamic, dynamic> defaultCurrency = {
+    "symbol": "USD ",
+    "decimalDigits": 2,
+    "symbolBeforeTheNumber": true,
+    "currency": "USD"
+  };
 
   bool isEnableShipping = false;
   bool isEnableAddress = false;
 
-  String returnURL = 'return.example.com';
-  String cancelURL= 'cancel.example.com';
+  String returnURL = 'https://samplesite.com/return';
 
+  String cancelURL = 'https://samplesite.com/cancel';
+
+ // returnURL: "https://samplesite.com/return",
+  //cancelURL: "https://samplesite.com/cancel",
 
   @override
   void initState() {
@@ -43,7 +47,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
     Future.delayed(Duration.zero, () async {
       try {
-        accessToken = (await services.getAccessToken());
+        accessToken = await services.getAccessToken();
 
         final transactions = getOrderParams();
         final res =
@@ -54,26 +58,25 @@ class PaypalPaymentState extends State<PaypalPayment> {
             executeUrl = res["executeUrl"];
           });
         }
-      } catch (e) {
-        print('exception: '+e.toString());
+      } catch (ex) {
         final snackBar = SnackBar(
-          content: Text(e.toString()),
-          duration: Duration(seconds: 10),
+          content: Text(ex.toString()),
+          duration: const Duration(seconds: 10),
           action: SnackBarAction(
             label: 'Close',
             onPressed: () {
-              // Some code to undo the change.
+              // Some code for undoing the alteration.
             },
           ),
         );
-       // _scaffoldKey.currentState.showSnackBar(snackBar);
+        //_scaffoldKey.currentState!.showSnackBar(snackBar);
       }
     });
   }
 
-  // item name, price and quantity
-  String itemName = 'iPhone X';
-  String itemPrice = '1.99';
+  // item name, price and quantity here
+  String itemName = 'One plus 10';
+  String itemPrice = '100';
   int quantity = 1;
 
   Map<String, dynamic> getOrderParams() {
@@ -86,20 +89,19 @@ class PaypalPaymentState extends State<PaypalPayment> {
       }
     ];
 
-
-    // checkout invoice details
-    String totalAmount = '1.99';
-    String subTotalAmount = '1.99';
+    // Checkout Invoice Specifics
+    String totalAmount = '100';
+    String subTotalAmount = '100';
     String shippingCost = '0';
     int shippingDiscountCost = 0;
-    String userFirstName = 'Gulshan';
-    String userLastName = 'Yadav';
-    String addressCity = 'Delhi';
-    String addressStreet = 'Mathura Road';
-    String addressZipCode = '110014';
-    String addressCountry = 'India';
-    String addressState = 'Delhi';
-    String addressPhoneNumber = '+919990119091';
+    String userFirstName = 'john';
+    String userLastName = 'smith';
+    String addressCity = 'USA';
+    String addressStreet = "i-10";
+    String addressZipCode = '44000';
+    String addressCountry = 'Pakistan';
+    String addressState = 'Islamabad';
+    String addressPhoneNumber = '+1 223 6161 789';
 
     Map<String, dynamic> temp = {
       "intent": "sale",
@@ -112,8 +114,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
             "details": {
               "subtotal": subTotalAmount,
               "shipping": shippingCost,
-              "shipping_discount":
-              ((-1.0) * shippingDiscountCost).toString()
+              "shipping_discount": ((-1.0) * shippingDiscountCost).toString()
             }
           },
           "description": "The payment transaction description.",
@@ -122,12 +123,9 @@ class PaypalPaymentState extends State<PaypalPayment> {
           },
           "item_list": {
             "items": items,
-            if (isEnableShipping &&
-                isEnableAddress)
+            if (isEnableShipping && isEnableAddress)
               "shipping_address": {
-                "recipient_name": userFirstName +
-                    " " +
-                    userLastName,
+                "recipient_name": userFirstName + " " + userLastName,
                 "line1": addressStreet,
                 "line2": "",
                 "city": addressCity,
@@ -140,10 +138,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
         }
       ],
       "note_to_payer": "Contact us for any questions on your order.",
-      "redirect_urls": {
-        "return_url": returnURL,
-        "cancel_url": cancelURL
-      }
+      "redirect_urls": {"return_url": returnURL, "cancel_url": cancelURL}
     };
     return temp;
   }
@@ -155,9 +150,11 @@ class PaypalPaymentState extends State<PaypalPayment> {
     if (checkoutUrl != null) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme
+              .of(context)
+              .backgroundColor,
           leading: GestureDetector(
-            child: Icon(Icons.arrow_back_ios),
+            child: const Icon(Icons.arrow_back_ios),
             onTap: () => Navigator.pop(context),
           ),
         ),
@@ -192,14 +189,14 @@ class PaypalPaymentState extends State<PaypalPayment> {
         key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.of(context).pop();
               }),
           backgroundColor: Colors.black12,
           elevation: 0.0,
         ),
-        body: Center(child: Container(child: CircularProgressIndicator())),
+        body: const Center(child: CircularProgressIndicator()),
       );
     }
   }
