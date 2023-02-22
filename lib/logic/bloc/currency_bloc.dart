@@ -28,7 +28,7 @@ class CurrencyBloc {
         print("currency -------------- ${ClubApp.currencyLbl}");
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+       // ackAlert(context, error);
       }
     }).catchError((Object error) {
       loadingController.add(false);

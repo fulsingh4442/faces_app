@@ -52,7 +52,7 @@ class EventBookingBloc {
           eventListController.add(EventsBookingState.NoData);
         }
       } else {
-        ackAlert(context, eventSeatsResponse.error);
+        //ackAlert(context, eventSeatsResponse.error);
       }
     }).catchError((Object error) {
       print(error.toString());
@@ -91,7 +91,7 @@ class EventBookingBloc {
           }
         });
       } else {
-        ackAlert(context, responseBody['error']);
+       // ackAlert(context, responseBody['error']);
       }
     });
   }

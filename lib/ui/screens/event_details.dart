@@ -144,23 +144,23 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                         //     color: borderColor,
                         //   ),
                         // ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        if (_isloggedin)
-                          Container(
-                            height: 40,
-                            width: 100,
-                            child: OutlineBorderButton(
-                                buttonBackground,
-                                0.0,
-                                0.0,
-                                "Guest List",
-                                Theme.of(context).textTheme.subtitle2.apply(
-                                    color: Colors.white), onPressed: () async {
-                              AppNavigator.gotoGuestList(context);
-                            }),
-                          ),
+                        // const SizedBox(
+                        //   width: 8,
+                        // ),
+                        // if (_isloggedin)
+                        //   Container(
+                        //     height: 40,
+                        //     width: 100,
+                        //     child: OutlineBorderButton(
+                        //         buttonBackground,
+                        //         0.0,
+                        //         0.0,
+                        //         "Guest List",
+                        //         Theme.of(context).textTheme.subtitle2.apply(
+                        //             color: Colors.white), onPressed: () async {
+                        //       //AppNavigator.gotoGuestList(context);
+                        //     }),
+                        //   ),
                       ],
                     ),
                   ),

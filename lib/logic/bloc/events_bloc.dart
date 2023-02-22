@@ -130,7 +130,7 @@ class EventBloc {
           }
         }
       } else {
-        ackAlert(context, eventsResponse.error);
+       // ackAlert(context, eventsResponse.error);
       }
     }).catchError((Object error) {
       isLoadingController.add(false);

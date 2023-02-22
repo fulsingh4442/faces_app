@@ -1,14 +1,12 @@
 //import 'dart:html';
 import 'dart:io';
 
-import 'package:club_app/paypal/makePayment.dart';
-import 'package:club_app/ui/screens/landing.dart';
-import 'package:club_app/ui/utils/utils.dart';
+
+
+import 'package:club_app/paypal1/Transaction.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
-import 'package:club_app/ui/screens/select_branch.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:club_app/ui/screens/login.dart';
@@ -148,7 +146,7 @@ class MyApp extends StatelessWidget {
             TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 14.0),
           )),
       home: SplashScreen(),
-      //home: makePayment(),
+     // home: Transaction(),
       navigatorObservers: [routeObserver],
     ));
   }

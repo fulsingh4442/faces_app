@@ -5,6 +5,9 @@ import 'package:club_app/logic/bloc/add_on_bloc.dart';
 import 'package:club_app/logic/bloc/stripe_keys_bloc.dart';
 import 'package:club_app/logic/models/add_on_model.dart';
 import 'package:club_app/observer/add_on_observable.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/ui/screens/checkout.dart';
+import 'package:club_app/ui/utils/utility.dart';
 import 'package:club_app/ui/utils/utils.dart';
 import 'package:club_app/ui/widgets/outline_border_button.dart';
 import 'package:flutter/material.dart';
@@ -1233,122 +1236,120 @@ class _TableCartState extends State<TableCart> {
                           .textTheme
                           .subtitle1
                           .apply(color: Colors.white), onPressed: () async {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => UsePaypal(
-                            sandboxMode: true,
-                            clientId:
-                            "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
-                            secretKey:
-                            "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-                            returnURL: "https://samplesite.com/return",
-                            cancelURL: "https://samplesite.com/cancel",
-                            transactions: const [
-                              {
-                                "amount": {
-                                  "total": '100.12',
-                                  "currency": "USD",
-                                  "details": {
-                                    "subtotal": '100.12',
-                                    "shipping": '0',
-                                    "shipping_discount": 0
-                                  }
-                                },
-                                "description":
-                                "The payment transaction description.",
-                                // "payment_options": {
-                                //   "allowed_payment_method":
-                                //       "INSTANT_FUNDING_SOURCE"
-                                // },
-                                "item_list": {
-                                  "items": [
-                                    {
-                                      "name": "A demo product",
-                                      "quantity": 1,
-                                      "price": '100.12',
-                                      "currency": "USD"
-                                    }
-                                  ],
 
-                                  // shipping address is not required though
-                                  "shipping_address": {
-                                    "recipient_name": "Jane Foster",
-                                    "line1": "Travis County",
-                                    "line2": "",
-                                    "city": "Austin",
-                                    "country_code": "US",
-                                    "postal_code": "302020",
-                                    "phone": "+00000000",
-                                    "state": "Texas"
-                                  },
-                                }
-                              }
-                            ],
-                            note: "Contact us for any questions on your order.",
-                            onSuccess: (Map params) async {
-                              print("onSuccess: $params");
-                            },
-                            onError: (error) {
-                              print("onError: $error");
-                            },
-                            onCancel: (params) {
-                              print('cancelled: $params');
-                            }),
-                      ),
-                    );
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (BuildContext context) => PaypalPayment(
-                    //       onFinish: (number) async {
-                    //
-                    //         // payment done
-                    //         print('order id: '+number);
-                    //
-                    //       },
-                    //     ),
-                    //   ),
-                    // );
-                    // if (_addOnsBloc.totalPrice > 0) {
-                    //   print(
-                    //       "total from table cart ----------  ${_addOnsBloc.totalPrice}");
-                    //   // Navigator.push(
-                    //   //     context,
-                    //   //     MaterialPageRoute(
-                    //   //         builder: (context) =>
-                    //   //             Checkout(_addOnsBloc.pay_amount)));
-                    //   // Navigator.push(
-                    //   //     context,
-                    //   //     MaterialPageRoute(
-                    //   //         builder: (context) =>
-                    //   //             Payment(_addOnsBloc.pay_amount)));
-                    //   Navigator.of(context).push(
-                    //     MaterialPageRoute(
-                    //       builder: (BuildContext context) => PaypalPayment(
-                    //         onFinish: (number) async {
-                    //
-                    //           // payment done
-                    //           print('order id: '+number);
-                    //
-                    //         },
-                    //       ),
-                    //     ),
-                    //   );
-                    // } else {
-                    //   Utility.showSnackBarMessage(_scaffoldKey,
-                    //       "Please add atleast one table/event first.");
-                    // }
-                    // if (totalAmount > 0.0) {
-                    //   final bool isInternetAvailable =
-                    //       await isNetworkAvailable();
-                    //   if (isInternetAvailable) {
-                    //     // _tableCartBloc.checkoutTable(_addOnsBloc.tableCart, context);
-                    //   } else {
-                    //     ackAlert(context, ClubApp.no_internet_message);
-                    //   }
-                    // } else {
-                    //   Utility.showSnackBarMessage(
-                    //       _scaffoldKey, ClubApp.table_booking_warning);
-                    // }
+                    if (_addOnsBloc.totalPrice > 0) {
+                      print(
+                          "total from table cart ----------  ${_addOnsBloc.totalPrice}");
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (BuildContext context) =>
+                      //         Payment(
+                      //           onFinish: (number) {
+                      //             // payment done
+                      //             final snackBar = SnackBar(
+                      //               content: const Text(
+                      //                 "Payment done Successfully",style: TextStyle(color: Colors.cyan),),
+                      //               duration: const Duration(seconds: 5),
+                      //               action: SnackBarAction(
+                      //                 label: 'Close',textColor: Colors.cyan,
+                      //                 onPressed: () {
+                      //                   // Some code to undo the change.
+                      //                 },
+                      //               ),
+                      //             );
+                      //
+                      //             // _scaffoldKey.currentState.showSnackBar(snackBar);
+                      //           },
+                      //         ),
+                      //   ),
+                      // );
+                      ///////////
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (BuildContext context) => UsePaypal(
+                      //         sandboxMode: true,
+                      //         clientId:
+                      //         "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
+                      //         secretKey:
+                      //         "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
+                      //         returnURL: "https://samplesite.com/return",
+                      //         cancelURL: "https://samplesite.com/cancel",
+                      //         transactions: const [
+                      //           {
+                      //             "amount": {
+                      //               "total": '100.12',
+                      //               "currency": "USD",
+                      //               "details": {
+                      //                 "subtotal": '100.12',
+                      //                 "shipping": '0',
+                      //                 "shipping_discount": 0
+                      //               }
+                      //             },
+                      //             "description":
+                      //             "The payment transaction description.",
+                      //             // "payment_options": {
+                      //             //   "allowed_payment_method":
+                      //             //       "INSTANT_FUNDING_SOURCE"
+                      //             // },
+                      //             "item_list": {
+                      //               "items": [
+                      //                 {
+                      //                   "name": "A demo product",
+                      //                   "quantity": 1,
+                      //                   "price": '100.12',
+                      //                   "currency": "USD"
+                      //                 }
+                      //               ],
+                      //
+                      //               // shipping address is not required though
+                      //               "shipping_address": {
+                      //                 "recipient_name": "Jane Foster",
+                      //                 "line1": "Travis County",
+                      //                 "line2": "",
+                      //                 "city": "Austin",
+                      //                 "country_code": "US",
+                      //                 "postal_code": "302020",
+                      //                 "phone": "+00000000",
+                      //                 "state": "Texas"
+                      //               },
+                      //             }
+                      //           }
+                      //         ],
+                      //         note: "Contact us for any questions on your order.",
+                      //         onSuccess: (Map params) async {
+                      //           print("onSuccess: $params");
+                      //         },
+                      //         onError: (error) {
+                      //           print("onError: $error");
+                      //         },
+                      //         onCancel: (params) {
+                      //           print('cancelled: $params');
+                      //         }),
+                      //   ),
+                      // );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Checkout(_addOnsBloc.pay_amount)));
+
+
+                    } else {
+                      Utility.showSnackBarMessage(_scaffoldKey,
+                          "Please add atleast one table/event first.");
+                    }
+                    if (totalAmount > 0.0) {
+                      final bool isInternetAvailable =
+                          await isNetworkAvailable();
+                      if (isInternetAvailable) {
+                        // _tableCartBloc.checkoutTable(_addOnsBloc.tableCart, context);
+                      } else {
+                        ackAlert(context, ClubApp.no_internet_message);
+                      }
+                    } else {
+                      Utility.showSnackBarMessage(
+                          _scaffoldKey, ClubApp.table_booking_warning);
+                    }
                   }),
                 ],
               ),

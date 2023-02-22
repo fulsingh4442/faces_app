@@ -25,15 +25,15 @@ class AddAddonToCartBloc {
 
       Map map = json.decode(response.body);
       if (map.containsKey('status') && map['status']) {
-        ackAlert(context, "Added To Cart");
+      //  ackAlert(context, "Added To Cart");
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+       // ackAlert(context, error);/
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint('add addon to cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 }

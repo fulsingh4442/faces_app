@@ -10,6 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class EventsScreen extends StatefulWidget {
+
+
+  // bool tabbar;
+  // EventsScreen(this.tabbar);
+
   @override
   _EventsScreenState createState() => _EventsScreenState();
 }

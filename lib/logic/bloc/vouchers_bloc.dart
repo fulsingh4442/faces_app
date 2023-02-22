@@ -98,7 +98,7 @@ class VouchersBloc {
       } else {
         if (voucherList == null ||
             (voucherList != null && voucherList.isEmpty)) {
-          ackAlert(context, voucherResponse.error);
+        //  ackAlert(context, voucherResponse.error);
         } else {
           vouchersListController.add(VouchersState.AllEventsFetched);
         }
@@ -124,9 +124,9 @@ class VouchersBloc {
       debugPrint('Checkout vouchers response is ${response.body}');
       Map<String, dynamic> responseBody = json.decode(response.body);
       if(responseBody['status']){
-        ackAlert(context, 'Vouchers booked successfully');
+       // ackAlert(context, 'Vouchers booked successfully');
       } else {
-        ackAlert(context, responseBody['error']);
+       // ackAlert(context, responseBody['error']);
       }
     });
   }

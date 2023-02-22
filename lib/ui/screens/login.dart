@@ -563,7 +563,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
-      appBar: widget.type == "Events" ||
+      appBar:// widget.type == "Events" ||
               widget.type == "cart"
 
           ? AppBar(

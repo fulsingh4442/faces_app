@@ -5,6 +5,7 @@ import 'package:club_app/constants/constants.dart';
 import 'package:club_app/constants/navigator.dart';
 import 'package:club_app/constants/strings.dart';
 import 'package:club_app/ui/screens/select_branch.dart';
+import 'package:club_app/ui/screens/table/table_cart_old.dart';
 import 'package:club_app/ui/widgets/outline_border_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -62,6 +63,11 @@ class _TableNewScreenState extends State<TableNewScreen> {
                         .textTheme
                         .subtitle1
                         .apply(color: Colors.white), onPressed: () {
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (BuildContext context) => TableCart(false)
+                  //   ),
+                  // );
                   AppNavigator.gotoAddOns(context);
                 }),
               ),

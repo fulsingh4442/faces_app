@@ -29,12 +29,12 @@ class AddToCartBloc {
         // Navigator.of(context).pop();
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+      //  ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint('add to cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 }

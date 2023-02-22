@@ -41,13 +41,13 @@ class StripeBloc {
         prefs.setString('secret_key', secretKey);
         Stripe.publishableKey = publicKey;
       } else {
-        ackAlert(context, stripeResponseModel.error);
+       // ackAlert(context, stripeResponseModel.error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint(
           'get stripe response exception is -------->  ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 }

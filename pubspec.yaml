@@ -70,6 +70,13 @@ dev_dependencies:
   #platform: ^3.1.0
   visibility_detector: ^0.3.3
   flutter_paypal: ^0.0.1
+  flutter_braintree: ^3.0.0
+  http_auth:
+
+
+
+
+
 
   
   #

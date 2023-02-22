@@ -114,7 +114,7 @@ class LandingBloc {
         if (map['status']) {
           ackAlert(context, 'Booking id verified successfully');
         } else {
-          ackAlert(context, map['error']);
+         // ackAlert(context, map['error']);
         }
       });
     } catch (e) {

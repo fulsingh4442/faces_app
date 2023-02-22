@@ -45,7 +45,7 @@ class CategoryBloc {
           categoryListController.add(CategoryState.NoData);
         }
       } else {
-        ackAlert(context, categoryModelResponse.error);
+        //ackAlert(context, categoryModelResponse.error);
       }
     }).catchError((Object error) {
       print(error.toString());

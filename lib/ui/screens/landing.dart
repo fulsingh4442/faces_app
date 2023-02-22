@@ -94,7 +94,7 @@ class _LandingScreenState extends State<LandingScreen>
   final List<Widget> _children2 = <Widget>[
 
     TableNewScreen(),
-    LoginScreen("Events"),
+    EventsScreen(),
     // BiddingScreen(),
     LoginScreen("cart"),
   ];
@@ -157,13 +157,15 @@ class _LandingScreenState extends State<LandingScreen>
             break;
           case 1:
             title = 'Events';
+
             break;
-          case 3:
+          case 2:
             title = 'Cart';
             setState(() {
               oncartpress = true;
             });
             break;
+
         }
         _currentIndex = index;
       });

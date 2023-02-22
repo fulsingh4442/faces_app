@@ -7,6 +7,7 @@ import 'package:club_app/logic/bloc/create_payment_bloc.dart';
 import 'package:club_app/logic/bloc/sign_up_bloc.dart';
 import 'package:club_app/logic/bloc/stripe_keys_bloc.dart';
 import 'package:club_app/payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
 import 'package:club_app/ui/screens/bookings/bookings.dart';
 import 'package:club_app/ui/screens/landing.dart';
 import 'package:club_app/ui/utils/card_formatter.dart';
@@ -625,15 +626,49 @@ class _CheckoutState extends State<Checkout> {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Please Enter Name")));
                           } else {
-                            _checkOutBloc.checkout(
-                              userId.toString(),
-                              _signUpBloc.nameController.text,
-                              _signUpBloc.emailController.text,
-                              _signUpBloc.mobileController.text,
-                              widget.total.toString(),
-                              dropdownValueforPayment,
-                              context,
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    Payment(
+                                         userId.toString(),
+                                        _signUpBloc.nameController.text,
+                                        _signUpBloc.emailController.text,
+                                        _signUpBloc.mobileController.text,
+                                        widget.total.toString(),
+                                        dropdownValueforPayment,
+
+                                      onFinish: (number)
+                                      {
+                                        // payment done
+                                        final snackBar = SnackBar(
+                                          content: const Text(
+                                            "Payment done Successfully",style: TextStyle(color: Colors.cyan),),
+                                          duration: const Duration(seconds: 5),
+                                          action: SnackBarAction(
+                                            label: 'Close',textColor: Colors.cyan,
+                                            onPressed: () {
+                                              // Some code to undo the change.
+                                            },
+                                          ),
+                                        );
+                                        // _scaffoldKey.currentState.showSnackBar(snackBar);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text("$snackBar"),
+                                        ));
+                                      },
+                                    ),
+                              ),
                             );
+                            // _checkOutBloc.checkout(
+                            //   userId.toString(),
+                            //   _signUpBloc.nameController.text,
+                            //   _signUpBloc.emailController.text,
+                            //   _signUpBloc.mobileController.text,
+                            //   widget.total.toString(),
+                            //   dropdownValueforPayment,
+                            //   context,
+                            // );
                             Timer(Duration(seconds: 2), () {
                               _checkOutBloc.statuss == true
                                   ? payNow(context)

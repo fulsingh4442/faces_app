@@ -20,10 +20,7 @@ Widget bottomNavBar(BuildContext context, {int currentIndex,}) {
       // onTap: _onTabTapped,
       // this will be set when a new tab is tapped
       items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.event),
-          label: 'Events',
-        ),
+
         // BottomNavigationBarItem(
         //   icon: Icon(Icons.local_activity),
         //   title: const Text('Vouchers'),
@@ -31,6 +28,10 @@ Widget bottomNavBar(BuildContext context, {int currentIndex,}) {
         BottomNavigationBarItem(
           icon: Icon(Icons.local_bar),
           label: 'Table',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.event),
+          label: 'Events',
         ),
         // BottomNavigationBarItem(
         //   icon: Icon(Icons.star),

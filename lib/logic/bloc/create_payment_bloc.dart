@@ -40,12 +40,12 @@ class CheckOutBloc {
         // Navigator.of(context).pop();
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+       // ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint('create payment response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 
@@ -87,7 +87,7 @@ class CheckOutBloc {
       } else {
         print("objectcoming");
         String error = map['error'];
-      //  ackAlert(context, error);
+        ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);

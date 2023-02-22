@@ -167,13 +167,13 @@ class AddOnsBloc {
         fetchTableCartList();
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+      //  ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint(
           'delete table from cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 
@@ -191,13 +191,13 @@ class AddOnsBloc {
         fetchTableCartList();
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+       // ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint(
           'delete addon from cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+    //  ackAlert(context, error.toString());
     });
   }
 
@@ -213,16 +213,16 @@ class AddOnsBloc {
 
       Map map = json.decode(response.body);
       if (map.containsKey('status') && map['status']) {
-        ackAlert(context, "Removed Successfully!!!");
+       // ackAlert(context, "Removed Successfully!!!");
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+       // ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint(
           'delete addon from cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 
@@ -237,13 +237,13 @@ class AddOnsBloc {
         fetchTableCartList();
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+       // ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint(
           'delete event from cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 
@@ -258,15 +258,15 @@ class AddOnsBloc {
 
       Map map = json.decode(response.body);
       if (map.containsKey('status') && map['status']) {
-        ackAlert(context, "Added To Cart");
+       // ackAlert(context, "Added To Cart");
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+      //  ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint('add addon to cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+      //ackAlert(context, error.toString());
     });
   }
 
@@ -284,12 +284,12 @@ class AddOnsBloc {
         print("Sucessfully updated! Yay! Yay!");
       } else {
         String error = map['error'];
-        ackAlert(context, error);
+       // ackAlert(context, error);
       }
     }).catchError((Object error) {
       loaderController.add(false);
       debugPrint('add addon to cart response exception is ${error.toString()}');
-      ackAlert(context, error.toString());
+     // ackAlert(context, error.toString());
     });
   }
 }

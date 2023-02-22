@@ -119,9 +119,9 @@ class CartBloc {
       debugPrint('Checkout table response is ${response.body}');
       Map<String, dynamic> responseBody = json.decode(response.body);
       if (responseBody['status']) {
-        ackAlert(context, 'Table booked successfully');
+       // ackAlert(context, 'Table booked successfully');
       } else {
-        ackAlert(context, responseBody['error']);
+      //  ackAlert(context, responseBody['error']);
       }
     });
   }

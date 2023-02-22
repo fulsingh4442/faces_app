@@ -66,19 +66,19 @@ class AppNavigator {
     Navigator.push(context, route);
   }
 
-  static void gotoGuestList(BuildContext context) {
-    final Route<GuestList> route = MaterialPageRoute<GuestList>(
-        settings: RouteSettings(name: '/guest_list'),
-        builder: (BuildContext context) => GuestList());
-    Navigator.push(context, route);
-  }
+  // static void gotoGuestList(BuildContext context) {
+  //   final Route<GuestList> route = MaterialPageRoute<GuestList>(
+  //       settings: RouteSettings(name: '/guest_list'),
+  //       builder: (BuildContext context) => GuestList());
+  //   Navigator.push(context, route);
+  // }
 
-  static void gotoSelectVenue(BuildContext context) {
-    final Route<GuestList> route = MaterialPageRoute<GuestList>(
-        settings: RouteSettings(name: '/select_venue'),
-        builder: (BuildContext context) => SelectBranchScreen());
-    Navigator.push(context, route);
-  }
+  // static void gotoSelectVenue(BuildContext context) {
+  //   final Route<GuestList> route = MaterialPageRoute<GuestList>(
+  //       settings: RouteSettings(name: '/select_venue'),
+  //       builder: (BuildContext context) => SelectBranchScreen());
+  //   Navigator.push(context, route);
+  // }
 
   static void gotoTableCart(BuildContext context,
       List<TableCartModel> cartTable, List<EventCartModel> eventTable) {
@@ -90,10 +90,11 @@ class AppNavigator {
 
   static void gotoAddOns(BuildContext context) {
     final Route<AddOns> route = MaterialPageRoute<AddOns>(
-        settings: RouteSettings(name: '/add_ons'),
+        settings: RouteSettings(name: '/table_cart'),
         builder: (BuildContext context) => AddOns());
     Navigator.push(context, route);
   }
+
 
   static void gotoBookings(BuildContext context) {
     final Route<BookingScreen> route = MaterialPageRoute<BookingScreen>(

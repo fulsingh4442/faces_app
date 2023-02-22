@@ -98,10 +98,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 16,
                   ),
                   Container(
-                    child: Image.asset(
-                      sucasaSelected
-                          ? 'assets/images/sucasa.png'
-                          : 'assets/images/Kenjin_logo.png',
+
+                    child: Image.asset('assets/images/tibus.png',
+                      // sucasaSelected
+                      //     ? 'assets/images/sucasa.png'
+                      //     : 'assets/images/Kenjin_logo.png',
                       //  color: Colors.white,
                       fit: BoxFit.fill,
                       alignment: Alignment.bottomCenter,
@@ -456,7 +457,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/splash.png'),
+              image: AssetImage('assets/images/login.jpg'),
               fit: BoxFit.fill,
             ),
           ),
