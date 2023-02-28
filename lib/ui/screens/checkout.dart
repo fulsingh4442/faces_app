@@ -8,18 +8,30 @@ import 'package:club_app/logic/bloc/sign_up_bloc.dart';
 import 'package:club_app/logic/bloc/stripe_keys_bloc.dart';
 import 'package:club_app/payment.dart';
 import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
+import 'package:club_app/paypal1/Payment.dart';
 import 'package:club_app/ui/screens/bookings/bookings.dart';
 import 'package:club_app/ui/screens/landing.dart';
+import 'package:club_app/ui/screens/vouchers/success.dart';
 import 'package:club_app/ui/utils/card_formatter.dart';
 import 'package:club_app/ui/utils/utility.dart';
 import 'package:club_app/ui/utils/utils.dart';
 import 'package:club_app/ui/widgets/outline_border_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_paypal/flutter_paypal.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+
+import '../../paypal1/Payment.dart';
 
 class Checkout extends StatefulWidget {
   double total;
@@ -30,6 +42,19 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
+
+  String totalAmount = '100';
+  String subTotalAmount = '100';
+  String shippingCost = '0';
+  int shippingDiscountCost = 0;
+  String userFirstName = 'john';
+  String userLastName = 'smith';
+  String addressCity = 'USA';
+  String addressStreet = "i-10";
+  String addressZipCode = '44000';
+  String addressCountry = 'Pakistan';
+  String addressState = 'Islamabad';
+  String addressPhoneNumber = '+1 223 6161 789';
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String dropdownValueforNationality = 'Indian';
   String dropdownValueforExpectedArrival = 'Select Time';
@@ -200,6 +225,8 @@ class _CheckoutState extends State<Checkout> {
     _signUpBloc.dispose();
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -605,6 +632,7 @@ class _CheckoutState extends State<Checkout> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         OutlineBorderButton(
+
                             buttonBackground,
                             12.0,
                             32.0,
@@ -626,57 +654,92 @@ class _CheckoutState extends State<Checkout> {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Please Enter Name")));
                           } else {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => Payment(
+                            //     )));
+
+
+
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    Payment(
-                                         userId.toString(),
-                                        _signUpBloc.nameController.text,
-                                        _signUpBloc.emailController.text,
-                                        _signUpBloc.mobileController.text,
-                                        widget.total.toString(),
-                                        dropdownValueforPayment,
-
-                                      onFinish: (number)
+                                builder: (BuildContext context) => UsePaypal(
+                                    sandboxMode: true,
+                                    clientId:
+                                    "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
+                                    secretKey:
+                                    "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
+                                    returnURL: "https://samplesite.com/return",
+                                    cancelURL: "https://samplesite.com/cancel",
+                                    transactions: [
                                       {
-                                        // payment done
-                                        final snackBar = SnackBar(
-                                          content: const Text(
-                                            "Payment done Successfully",style: TextStyle(color: Colors.cyan),),
-                                          duration: const Duration(seconds: 5),
-                                          action: SnackBarAction(
-                                            label: 'Close',textColor: Colors.cyan,
-                                            onPressed: () {
-                                              // Some code to undo the change.
-                                            },
-                                          ),
-                                        );
-                                        // _scaffoldKey.currentState.showSnackBar(snackBar);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text("$snackBar"),
-                                        ));
-                                      },
-                                    ),
+                                        "amount": {
+                                          "total": widget.total,
+                                          "currency": "USD",
+                                          "details": {
+                                            "subtotal":  widget.total,
+                                            "shipping": '0',
+                                            "shipping_discount": 0
+                                          }
+                                        },
+
+                                        "description":
+                                        "The payment transaction description.",
+                                        "payment_options": {
+                                          "allowed_payment_method":
+                                              "INSTANT_FUNDING_SOURCE"
+                                        },
+                                        "item_list": {
+                                          "items": [
+                                            {
+                                              "name": "A demo product",
+                                              "quantity": 1,
+                                              "price": widget.total,
+                                              "currency": "USD"
+                                            }
+                                          ],
+
+                                          // shipping address is not required though
+                                          "shipping_address": {
+                                            "recipient_name": "Jane Foster",
+                                            "line1": "Travis County",
+                                            "line2": "",
+                                            "city": "Austin",
+                                            "country_code": "US",
+                                            "postal_code": "73301",
+                                            "phone": "+00000000",
+                                            "state": "Texas"
+                                          },
+                                        }
+                                      }
+                                    ],
+                                    note: "Contact us for any questions on your order.",
+                                    onSuccess: (Map params) async {
+                                      print("onSuccess: $params");
+                                    },
+                                    onError: (error) {
+                                      print("onError: $error");
+                                    },
+                                    onCancel: (params) {
+                                      print('cancelled: $params');
+                                    }),
+
+
+
                               ),
                             );
-                            // _checkOutBloc.checkout(
-                            //   userId.toString(),
-                            //   _signUpBloc.nameController.text,
-                            //   _signUpBloc.emailController.text,
-                            //   _signUpBloc.mobileController.text,
-                            //   widget.total.toString(),
-                            //   dropdownValueforPayment,
-                            //   context,
-                            // );
+
                             Timer(Duration(seconds: 2), () {
                               _checkOutBloc.statuss == true
                                   ? payNow(context)
                                   : ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                      content: Text("Something went wrong"),
-                                    ));
+                                  .showSnackBar(SnackBar(
+                                content: Text("Something went wrong"),
+                              ));
                             });
+
+
                           }
                         }),
                       ],
@@ -690,6 +753,7 @@ class _CheckoutState extends State<Checkout> {
                           top: MediaQuery.of(context).size.height * 0.30,
                           left: MediaQuery.of(context).size.height * 0.20,
                         ),
+
                         child: CircularProgressIndicator(),
                       )
                     : Container(),

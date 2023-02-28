@@ -91,7 +91,7 @@ class AppNavigator {
   static void gotoAddOns(BuildContext context) {
     final Route<AddOns> route = MaterialPageRoute<AddOns>(
         settings: RouteSettings(name: '/table_cart'),
-        builder: (BuildContext context) => AddOns());
+        builder: (BuildContext context) => TableCart(false));
     Navigator.push(context, route);
   }
 

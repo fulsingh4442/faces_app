@@ -171,4 +171,6 @@ class ClubApp {
   // static String token = "token";
   static String currencyLbl = "";
   static String added_to_cart = "successfully added to cart";
+  static String image_size_message =
+      'Please upload max 1mb image here.';
 }

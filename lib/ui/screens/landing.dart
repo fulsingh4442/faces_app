@@ -210,6 +210,367 @@ class _LandingScreenState extends State<LandingScreen>
           Container(),
         ],
       ),
+      // endDrawer: Drawer(
+      //   child: Column(
+      //     children: <Widget>[
+      //       DrawerHeader(
+      //         margin: const EdgeInsets.all(0),
+      //         decoration: BoxDecoration(color: drawerColor),
+      //         child: Container(
+      //           height: 250,
+      //           color: drawerColor,
+      //           child: InkWell(
+      //             onTap: () {
+      //                Navigator.pop(context);
+      //                AppNavigator.gotoProfileScreen(context);
+      //             },
+      //             child: Row(
+      //               children: [
+      //                 Column(
+      //                   children: [
+      //                     StreamBuilder<String>(
+      //
+      //                       stream: _landingBloc.userNameController.stream,
+      //                       builder: (BuildContext context,
+      //                           AsyncSnapshot<String> snapshot) {
+      //                         String userName = '';
+      //                         if (snapshot.hasData) {
+      //                           userName = snapshot.data;
+      //                         }
+      //
+      //                         return Text(
+      //                           _isloggedin == true ? userName : "",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold  ),
+      //
+      //
+      //                          //  style: Theme.of(context).textTheme.headline6
+      //                         );
+      //                       },
+      //                     ),
+      //                     SizedBox(
+      //                       height: 10,
+      //                     ),
+      //                     Container(
+      //
+      //                         child: _isloggedin == false
+      //                             ? CircleAvatar(
+      //                           child: Container(
+      //                             padding: const EdgeInsets.all(10.0),
+      //                             decoration: BoxDecoration(
+      //                               shape: BoxShape.circle,
+      //                               image: DecorationImage(
+      //                                 fit: BoxFit.cover,
+      //                                 image: AssetImage(
+      //                                     'assets/images/placeholder2.gif'),
+      //                               ),
+      //                             ),
+      //                           ),
+      //                           minRadius: 40,
+      //                           maxRadius: 40,
+      //                         )
+      //                             : photo == ''
+      //                             ?
+      //                         CircleAvatar(
+      //                           child: Container(
+      //                             padding: const EdgeInsets.all(10.0),
+      //                             decoration: BoxDecoration(
+      //                               shape: BoxShape.circle,
+      //                               image: DecorationImage(
+      //                                 fit: BoxFit.cover,
+      //                                 image: AssetImage(
+      //                                     'assets/images/profile_placeholder.png'),
+      //                               ),
+      //                             ),
+      //                           ),
+      //                           minRadius: 40,
+      //                           maxRadius: 40,
+      //                         )
+      //                             : ClipOval(
+      //                           child: FadeInImage.assetNetwork(
+      //                             placeholder:
+      //                             'assets/images/placeholder2.gif',
+      //                             image: photo,
+      //                             // fadeInDuration:
+      //                             //    const Duration(milliseconds: 500),
+      //                             fit: BoxFit.cover,
+      //                             alignment: Alignment.center,
+      //                             height: 65,
+      //                             width: 65,
+      //                           ),
+      //                         )
+      //
+      //                     ),
+      //                   ],
+      //                 ),
+      //                 const SizedBox(
+      //                   width: 16,
+      //                 ),
+      //                 Column(
+      //                   mainAxisAlignment: MainAxisAlignment.center,
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: <Widget>[
+      //                     SizedBox(
+      //                       height: 5,
+      //                     ),
+      //                     if (_isloggedin == true)
+      //                     // Row(
+      //                     //   children: <Widget>[
+      //                     //     StreamBuilder<int>(
+      //                     //       stream: _landingBloc
+      //                     //           .loyaltyPointsController.stream,
+      //                     //       builder: (BuildContext context,
+      //                     //           AsyncSnapshot<int> snapshot) {
+      //                     //         int loyaltyPoints = 0;
+      //                     //         if (snapshot.hasData) {
+      //                     //           loyaltyPoints = snapshot.data;
+      //                     //         }
+      //                     //         return Text(loyaltyPoints.toString(),
+      //                     //             style: Theme.of(context)
+      //                     //                 .textTheme
+      //                     //                 .subtitle1);
+      //                     //       },
+      //                     //     ),
+      //                     //     SizedBox(width: 5),
+      //                     //     // Icon(
+      //                     //     //   Icons.star_border_outlined,
+      //                     //     //   size: 20,
+      //                     //     // )
+      //                     //   ],
+      //                     // ),
+      //                       SizedBox(
+      //                         height: 10,
+      //                       ),
+      //                     if (_isloggedin == true)
+      //                       Row(
+      //                         children: <Widget>[
+      //                           StreamBuilder<String>(
+      //                             stream:
+      //                                 _landingBloc.loyaltyNameController.stream,
+      //                             builder: (BuildContext context,
+      //                                 AsyncSnapshot<String> snapshot) {
+      //                               String membershipStatus = "";
+      //                               if (snapshot.hasData) {
+      //                                 membershipStatus = snapshot.data;
+      //                               }
+      //                               return Text(membershipStatus.toString(),
+      //                                   style: Theme.of(context)
+      //                                       .textTheme
+      //                                       .subtitle1);
+      //                             },
+      //                           ),
+      //                           SizedBox(width: 10),
+      //                         ],
+      //                       ),
+      //                     SizedBox(
+      //                       height: 10,
+      //                     ),
+      //                     if (_isloggedin == true)
+      //                       Row(
+      //                         children: <Widget>[
+      //                           StreamBuilder<String>(
+      //                             stream: _landingBloc
+      //                                 .memberShipTypeController.stream,
+      //                             builder: (BuildContext context,
+      //                                 AsyncSnapshot<String> snapshot) {
+      //                               String membershipStatus = "";
+      //                               if (snapshot.hasData) {
+      //                                 membershipStatus = snapshot.data;
+      //                               }
+      //                               return Text(membershipStatus.toString(),
+      //                                   style: Theme.of(context)
+      //                                       .textTheme
+      //                                       .subtitle1);
+      //                             },
+      //                           ),
+      //                           // SizedBox(width: 10),
+      //                         ],
+      //                       )
+      //                   ],
+      //                 ),
+      //                 // if (_isloggedin == true)
+      //                 //   StreamBuilder<String>(
+      //                 //     stream: _landingBloc.QRCodeController.stream,
+      //                 //     builder: (BuildContext context,
+      //                 //         AsyncSnapshot<String> snapshot) {
+      //                 //       String qrCode = "";
+      //                 //       if (snapshot.hasData) {
+      //                 //         qrCode = snapshot.data;
+      //                 //       }
+      //                 //       return SizedBox(
+      //                 //         height: 68,
+      //                 //         width: 65,
+      //                 //         child: Image(image: NetworkImage(qrCode)),
+      //                 //       );
+      //                 //     },
+      //                 //   ),
+      //               ],
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //       Expanded(
+      //         child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+      //           if (_isloggedin == true)
+      //             ListTile(
+      //               title: Text('Settings',
+      //                   style: Theme.of(context).textTheme.subtitle2),
+      //               leading: const Icon(
+      //                 Icons.settings,
+      //                 color: Colors.black,
+      //               ),
+      //               onTap: () {
+      //                 Navigator.pop(context);
+      //                 AppNavigator.gotoProfileScreen(context);
+      //               },
+      //             ),
+      //           // ListTile(
+      //           //   title: Text('Notifications',
+      //           //       style: Theme.of(context).textTheme.subtitle2),
+      //           //   leading: const Icon(
+      //           //     Icons.notifications,getUserDetails
+      //           //     color: Colors.black,
+      //           //   ),
+      //           //   onTap: () {
+      //           //     /*List<NotificationModel> notificationList =
+      //           //           <NotificationModel>[];
+      //           //       NotificationModel notificationModel1 = NotificationModel(
+      //           //           id: '1',
+      //           //           title: 'Notification 1',
+      //           //           subTitle: 'This is notification 1 subtitle');
+      //           //       NotificationModel notificationModel2 = NotificationModel(
+      //           //           id: '2',
+      //           //           title: 'Notification 2',
+      //           //           subTitle: 'This is notification 2 subtitle');
+      //           //       NotificationModel notificationModel3 = NotificationModel(
+      //           //           id: '3',
+      //           //           title: 'Notification 3',
+      //           //           subTitle: 'This is notification 3 subtitle');
+      //           //       NotificationModel notificationModel4 = NotificationModel(
+      //           //           id: '4',
+      //           //           title: 'Notification 4',
+      //           //           subTitle: 'This is notification 4 subtitle');
+      //           //       notificationList.add(notificationModel1);
+      //           //       notificationList.add(notificationModel2);
+      //           //       notificationList.add(notificationModel3);
+      //           //       notificationList.add(notificationModel4);*/
+      //           //     Navigator.pop(context);
+      //           //     AppNavigator.gotoNotification(context);
+      //           //   },
+      //           // ),
+      //           ListTile(
+      //             title: Text('Help',
+      //                 style: Theme.of(context).textTheme.subtitle2),
+      //             leading: Icon(
+      //               Icons.help,
+      //               color: Colors.black,
+      //             ),
+      //             onTap: () {
+      //               Navigator.pop(context);
+      //             },
+      //           ),
+      //           ListTile(
+      //             title: Text('Bookings',
+      //                 style: Theme.of(context).textTheme.subtitle2),
+      //             leading: Icon(
+      //               Icons.star,
+      //               color: Colors.black,
+      //             ),
+      //             onTap: () {
+      //               if (_isloggedin == true) {
+      //                 Navigator.pop(context);
+      //                 AppNavigator.gotoBookings(context);
+      //               } else {
+      //                 Navigator.push(
+      //                     context,
+      //                     MaterialPageRoute(
+      //                         builder: (context) => LoginScreen("enddrawer")));
+      //               }
+      //             },
+      //           ),
+      //           // if (_isloggedin == true)
+      //           //   ListTile(
+      //           //     title: Text('Submit Guest List',
+      //           //         style: Theme.of(context).textTheme.subtitle2),
+      //           //     leading: Icon(
+      //           //       Icons.person,
+      //           //       color: Colors.black,
+      //           //     ),
+      //           //     onTap: () {
+      //           //       if (_isloggedin == true) {
+      //           //         Navigator.pop(context);
+      //           //         AppNavigator.gotoGuestList(context);
+      //           //       } else {
+      //           //         Navigator.push(
+      //           //             context,
+      //           //             MaterialPageRoute(
+      //           //                 builder: (context) =>
+      //           //                     LoginScreen("enddrawer")));
+      //           //       }
+      //           //     },
+      //           //   ),
+      //           // ListTile(
+      //           //   title: Text('Select Venue',
+      //           //       style: Theme.of(context).textTheme.subtitle2),
+      //           //   leading: Icon(
+      //           //     Icons.home_work_sharp,
+      //           //     color: Colors.black,
+      //           //   ),
+      //           //   onTap: () {
+      //           //     AppNavigator.gotoSelectVenue(context);
+      //           //   },
+      //           // ),
+      //           FutureBuilder<bool>(
+      //             builder:
+      //                 (BuildContext context, AsyncSnapshot<bool> snapshot) {
+      //               if (snapshot.hasData && snapshot.data) {
+      //                 return ListTile(
+      //                   title: Text('Scan Code',
+      //                       style: Theme.of(context).textTheme.subtitle2),
+      //                   leading: Icon(
+      //                     Icons.settings_overscan,
+      //                     color: Colors.black,
+      //                   ),
+      //                   onTap: () async {
+      //                     Navigator.pop(context);
+      //                     // await scan();
+      //                   },
+      //                 );
+      //               } else {
+      //                 return Container();
+      //               }
+      //             },
+      //             // future: _checkUserType(),
+      //           ),
+      //         ]),
+      //       ),
+      //       Container(
+      //         margin: EdgeInsets.only(bottom: 20),
+      //         child: OutlinedButton(
+      //           onPressed: () async {
+      //             if (_isloggedin == true) {
+      //               final SharedPreferences prefs =
+      //               await SharedPreferences.getInstance();
+      //               prefs.setBool(ClubApp.loginSuccess, false);
+      //               //await _landingBloc.registerDeregisterToken(false);
+      //               //prefs.setString(ClubApp.token, null);
+      //               // SystemNavigator.pop();
+      //               AppNavigator.gotoLanding(context);
+      //             } else {
+      //               Navigator.push(
+      //                   context,
+      //                   MaterialPageRoute(
+      //                       builder: (context) => LoginScreen("sidemenu")));
+      //             }
+      //           },
+      //           style: OutlinedButton.styleFrom(
+      //             onSurface: unClaimButtonColor,
+      //           ),
+      //           child: Text(_isloggedin == true ? 'Logout' : 'SignIn',
+      //               style: Theme.of(context).textTheme.subtitle2),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       endDrawer: Drawer(
         child: Column(
           children: <Widget>[
@@ -221,15 +582,14 @@ class _LandingScreenState extends State<LandingScreen>
                 color: drawerColor,
                 child: InkWell(
                   onTap: () {
-                    // Navigator.pop(context);
-                    // AppNavigator.gotoProfileScreen(context);
+                     Navigator.pop(context);
+                     AppNavigator.gotoProfileScreen(context);
                   },
                   child: Row(
                     children: [
                       Column(
                         children: [
                           StreamBuilder<String>(
-
                             stream: _landingBloc.userNameController.stream,
                             builder: (BuildContext context,
                                 AsyncSnapshot<String> snapshot) {
@@ -238,12 +598,9 @@ class _LandingScreenState extends State<LandingScreen>
                                 userName = snapshot.data;
                               }
 
-                              return Text(
-                                _isloggedin == true ? userName : "",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold  ),
-
-
-                                // style: Theme.of(context).textTheme.headline6
-                              );
+                              return Text(_isloggedin == true ? userName : "",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold  ),
+                                 // style: Theme.of(context).textTheme.headline
+                                  );
                             },
                           ),
                           SizedBox(
@@ -311,79 +668,80 @@ class _LandingScreenState extends State<LandingScreen>
                           SizedBox(
                             height: 5,
                           ),
-                          if (_isloggedin == true)
-                          // Row(
-                          //   children: <Widget>[
-                          //     StreamBuilder<int>(
-                          //       stream: _landingBloc
-                          //           .loyaltyPointsController.stream,
-                          //       builder: (BuildContext context,
-                          //           AsyncSnapshot<int> snapshot) {
-                          //         int loyaltyPoints = 0;
-                          //         if (snapshot.hasData) {
-                          //           loyaltyPoints = snapshot.data;
-                          //         }
-                          //         return Text(loyaltyPoints.toString(),
-                          //             style: Theme.of(context)
-                          //                 .textTheme
-                          //                 .subtitle1);
-                          //       },
-                          //     ),
-                          //     SizedBox(width: 5),
-                          //     // Icon(
-                          //     //   Icons.star_border_outlined,
-                          //     //   size: 20,
-                          //     // )
-                          //   ],
+                          // if (_isloggedin == true)
+                          //   Row(
+                          //     children: <Widget>[
+                          //       StreamBuilder<int>(
+                          //         stream: _landingBloc
+                          //             .loyaltyPointsController.stream,
+                          //         builder: (BuildContext context,
+                          //             AsyncSnapshot<int> snapshot) {
+                          //           int loyaltyPoints = 0;
+                          //           if (snapshot.hasData) {
+                          //             loyaltyPoints = snapshot.data;
+                          //           }
+                          //           return Text(loyaltyPoints.toString(),
+                          //               style: Theme.of(context)
+                          //                   .textTheme
+                          //                   .subtitle1);
+                          //         },
+                          //       ),
+                          //       SizedBox(width: 5),
+                          //       Icon(
+                          //         Icons.star_border_outlined,
+                          //
+                          //         size: 20,
+                          //       )
+                          //     ],
+                          //   ),
+                          // SizedBox(
+                          //   height: 10,
                           // ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          if (_isloggedin == true)
-                            Row(
-                              children: <Widget>[
-                                // StreamBuilder<String>(
-                                //   stream:
-                                //       _landingBloc.loyaltyNameController.stream,
-                                //   builder: (BuildContext context,
-                                //       AsyncSnapshot<String> snapshot) {
-                                //     String membershipStatus = "";
-                                //     if (snapshot.hasData) {
-                                //       membershipStatus = snapshot.data;
-                                //     }
-                                //     return Text(membershipStatus.toString(),
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle1);
-                                //   },
-                                // ),
-                                SizedBox(width: 10),
-                              ],
-                            ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          if (_isloggedin == true)
-                            Row(
-                              children: <Widget>[
-                                // StreamBuilder<String>(
-                                //   stream: _landingBloc
-                                //       .memberShipTypeController.stream,
-                                //   builder: (BuildContext context,
-                                //       AsyncSnapshot<String> snapshot) {
-                                //     String membershipStatus = "";
-                                //     if (snapshot.hasData) {
-                                //       membershipStatus = snapshot.data;
-                                //     }
-                                //     return Text(membershipStatus.toString(),
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle1);
-                                //   },
-                                // ),
-                                // SizedBox(width: 10),
-                              ],
-                            )
+                          // if (_isloggedin == true)
+                          //   Row(
+                          //     children: <Widget>[
+                          //       StreamBuilder<String>(
+                          //         stream:
+                          //         _landingBloc.loyaltyNameController.stream,
+                          //         builder: (BuildContext context,
+                          //             AsyncSnapshot<String> snapshot) {
+                          //           String membershipStatus = "";
+                          //           if (snapshot.hasData) {
+                          //             membershipStatus = snapshot.data;
+                          //           }
+                          //           return Text(membershipStatus.toString(),
+                          //               style: Theme.of(context)
+                          //                   .textTheme
+                          //                   .subtitle1);
+                          //         },
+                          //       ),
+                          //       SizedBox(width: 10),
+                          //     ],
+                          //   ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
+                          // if (_isloggedin == true)
+                          //   Row(
+                          //     children: <Widget>[
+                          //       StreamBuilder<String>(
+                          //         stream: _landingBloc
+                          //             .memberShipTypeController.stream,
+                          //         builder: (BuildContext context,
+                          //             AsyncSnapshot<String> snapshot) {
+                          //           String membershipStatus = "";
+                          //           if (snapshot.hasData) {
+                          //             membershipStatus = snapshot.data;
+                          //           }
+                          //           return Text(membershipStatus.toString(),
+                          //               style: Theme.of(context)
+                          //                   .textTheme
+                          //                   .subtitle1);
+                          //         },
+                          //       ),
+                          //       SizedBox(width: 10),
+                          //     ],
+                          //   )
                         ],
                       ),
                       // if (_isloggedin == true)
@@ -543,7 +901,7 @@ class _LandingScreenState extends State<LandingScreen>
               ]),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 20),
+              margin: EdgeInsets.only(bottom: 25),
               child: OutlinedButton(
                 onPressed: () async {
                   if (_isloggedin == true) {

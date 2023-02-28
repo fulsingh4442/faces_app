@@ -30,11 +30,13 @@ class _bookingScreenState extends State<BookingScreen> {
   ScrollController _scrollController = ScrollController();
   bool allBookingsFetched = false;
   var globalIndex = 0;
+
   @override
   void initState() {
     super.initState();
     _bookingBloc = BookingBloc();
     fetchBookings();
+   // print(object)
   }
 
   @override

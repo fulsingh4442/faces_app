@@ -1,5 +1,6 @@
-import 'dart:typed_data';
 
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:club_app/constants/constants.dart';
 import 'package:club_app/constants/navigator.dart';
 import 'package:club_app/constants/strings.dart';
@@ -90,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: <Widget>[
           Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -98,7 +99,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 16,
                   ),
                   Container(
-
                     child: Image.asset('assets/images/tibus.png',
                       // sucasaSelected
                       //     ? 'assets/images/sucasa.png'
@@ -390,26 +390,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final FormState form = _formKey.currentState;
                     if (form.validate()) {
                       final bool isInternetAvailable =
-                          await isNetworkAvailable();
+                      await isNetworkAvailable();
                       if (isInternetAvailable) {
                         final SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
+                        await SharedPreferences.getInstance();
                         int userId = prefs.getInt(ClubApp.userId);
 
                         final String name =
-                            _signUpBloc.nameController.text.trim();
+                        _signUpBloc.nameController.text.trim();
                         final String lastName =
                         _signUpBloc.lastNameController.text.trim();
                         final String email =
-                            _signUpBloc.emailController.text.trim();
+                        _signUpBloc.emailController.text.trim();
                         final String password =
-                            _signUpBloc.passwordController.text.trim();
+                        _signUpBloc.passwordController.text.trim();
                         final String confirmPassword =
-                            _signUpBloc.confirmPasswordController.text.trim();
+                        _signUpBloc.confirmPasswordController.text.trim();
                         final String phone =
-                            _signUpBloc.mobileController.text.trim();
+                        _signUpBloc.mobileController.text.trim();
                         final nationality =
-                            _signUpBloc.residenceController.text.trim();
+                        _signUpBloc.residenceController.text.trim();
                         //final String address = addressController.text.trim();
                         String gender = '';
 
@@ -531,8 +531,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           print('in');
           final f = ImagePicker();
           final pickedFile = await f.pickImage(source: source);
+          final path = pickedFile.path;
+          final file = await File(path);
+          final imageBytes = await file.length();
 
-          setState(() => _pickedImg = pickedFile);
+          final kb = imageBytes / 1024;
+
+          final mb = kb / 1024;
+          print("PHOTO SIZE: ${mb}");
+          if (mb > 5)
+          {
+            ackAlert(context, ClubApp.image_size_message);
+          }
+          else {
+            setState(() => _pickedImg = pickedFile);
+          }
         }catch(e){
           print('pick error $e');
         }
@@ -546,3 +559,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 }
+

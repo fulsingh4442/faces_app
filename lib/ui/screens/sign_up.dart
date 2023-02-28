@@ -1,3 +1,4 @@
+
 import 'dart:typed_data';
 
 import 'package:club_app/constants/constants.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -93,7 +95,7 @@ class _SignUpState extends State<SignUp> {
         children: <Widget>[
           Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -375,14 +377,14 @@ class _SignUpState extends State<SignUp> {
                     final FormState form = _formKey.currentState;
                     if (form.validate()) {
                       final bool isInternetAvailable =
-                          await isNetworkAvailable();
+                      await isNetworkAvailable();
                       if (isInternetAvailable) {
                         final String name = nameController.text.trim();
                         final String lastName = lastNameController.text.trim();
                         final String email = emailController.text.trim();
                         final String password = passwordController.text.trim();
                         final String confirmPassword =
-                            confirmPasswordController.text.trim();
+                        confirmPasswordController.text.trim();
                         final String phone = mobileController.text.trim();
                         //final String address = addressController.text.trim();
                         String gender = '';
@@ -395,9 +397,9 @@ class _SignUpState extends State<SignUp> {
                         }
                         Uint8List imgData = Uint8List(0);
                         if (_pickedImg != null)
-                          {
-                            imgData = await _pickedImg.readAsBytes();
-                          }
+                        {
+                          imgData = await _pickedImg.readAsBytes();
+                        }
 
                         var registerUser = _signUpBloc.registerUser(
                             name,
@@ -478,14 +480,14 @@ class _SignUpState extends State<SignUp> {
 
                     Center(
                         child: Form(
-                      key: _formKey,
-                      autovalidateMode: _autoValidate
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
-                      child: cardSignUp(),
-                    )),
+                          key: _formKey,
+                          autovalidateMode: _autoValidate
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
+                          child: cardSignUp(),
+                        )),
 
-                    ],
+                  ],
                 ),
               );
             },
@@ -500,33 +502,45 @@ class _SignUpState extends State<SignUp> {
       context: context,
       builder: (context) =>
           AlertDialog(content: Text("Choose image source"), actions: [
-        TextButton(
-            child: Text('Camera'),
-            onPressed: () {
-              Navigator.pop(context, ImageSource.camera);
-            }),
-        // FlatButton(
-        //   child: Text("Camera"),
-        //   onPressed: () => Navigator.pop(context, ImageSource.camera),
-        // ),
-        TextButton(
-            child: Text('Gallery'),
-            onPressed: () {
-              Navigator.pop(context, ImageSource.gallery);
-            }),
-        // FlatButton(
-        //   child: Text("Gallery"),
-        //   onPressed: () => Navigator.pop(context, ImageSource.gallery),
-        // ),
-      ]),
+            TextButton(
+                child: Text('Camera'),
+                onPressed: () {
+                  Navigator.pop(context, ImageSource.camera);
+                }),
+            // FlatButton(
+            //   child: Text("Camera"),
+            //   onPressed: () => Navigator.pop(context, ImageSource.camera),
+            // ),
+            TextButton(
+                child: Text('Gallery'),
+                onPressed: () {
+                  Navigator.pop(context, ImageSource.gallery);
+                }),
+            // FlatButton(
+            //   child: Text("Gallery"),
+            //   onPressed: () => Navigator.pop(context, ImageSource.gallery),
+            // ),
+          ]),
     ).then((ImageSource source) async {
       if (source != null) {
         try {
           print('in');
           final f = ImagePicker();
           final pickedFile = await f.pickImage(source: source);
+          //final image = await File(pickedFile.path);
+          final path = pickedFile.path;
+          final file = await File(path);
+          final imageBytes = await file.length();
 
-          setState(() => _pickedImg = pickedFile);
+          final kb = imageBytes / 1024;
+          final mb = kb / 1024;
+          if (mb > 5)
+          {
+            ackAlert(context, ClubApp.image_size_message);
+          }
+          else {
+            setState(() => _pickedImg = pickedFile);
+          }
         }catch(e){
           print('pick error $e');
         }
