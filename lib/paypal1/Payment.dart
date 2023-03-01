@@ -1,48 +1,72 @@
 import 'dart:core';
+import 'package:club_app/constants/strings.dart';
+import 'package:club_app/logic/bloc/add_on_bloc.dart';
 import 'package:club_app/logic/bloc/create_payment_bloc.dart';
 import 'package:club_app/logic/bloc/sign_up_bloc.dart';
 import 'package:club_app/paypal1/Services.dart';
+import 'package:club_app/ui/screens/vouchers/failed.dart';
+import 'package:club_app/ui/screens/vouchers/success.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Payment extends StatefulWidget {
+
+class PaypalPayment extends StatefulWidget {
+
+  double total;
+  //Checkout(this.total);
   final Function onFinish;
 
-  Payment({this.onFinish});
+  PaypalPayment({this.onFinish});
 
   @override
   State<StatefulWidget> createState() {
-
-    return PaymentState();
+    return PaypalPaymentState();
   }
 }
 
-class PaymentState extends State<Payment> {
+class PaypalPaymentState extends State<PaypalPayment> {
 
+  SignUpBloc _signUpBloc;
+  CheckOutBloc _checkOutBloc;
+  AddOnsBloc _addOnsBloc;
+  double totalAmount = 0.0;
+  String currency = ClubApp.currencyLbl;
+  static String id = 'exploreScreen';
+  bool loader = false;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _checkOutBloc = CheckOutBloc();
+  //   _signUpBloc = SignUpBloc();
+  //  // handleProfileAPI();
+  //   //StripeService.init();
+  // }
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String checkoutUrl;
   String executeUrl;
   String accessToken;
-  Services services = Services();
+  PaypalServices services = PaypalServices();
 
-  // You may alter the default value to whatever you like.
-  Map<dynamic, dynamic> defaultCurrency = {
-    "symbol": "USD ",
-    "decimalDigits": 2,
-    "symbolBeforeTheNumber": true,
-    "currency": "USD"
-  };
+  // you can change default currency according to your need
+  Map<dynamic,dynamic> defaultCurrency = {"symbol": "USD ", "decimalDigits": 2, "symbolBeforeTheNumber": true, "currency": "USD"};
+
   bool isEnableShipping = false;
   bool isEnableAddress = false;
+
   String returnURL = 'return.example.com';
-  String cancelURL = 'cancel.example.com';
+  String cancelURL= 'cancel.example.com';
+
 
   @override
   void initState() {
     super.initState();
+
     Future.delayed(Duration.zero, () async {
       try {
         accessToken = await services.getAccessToken();
+
         final transactions = getOrderParams();
         final res =
         await services.createPaypalPayment(transactions, accessToken);
@@ -52,28 +76,28 @@ class PaymentState extends State<Payment> {
             executeUrl = res["executeUrl"];
           });
         }
-      } catch (ex) {
+      } catch (e) {
+        print('exception: '+e.toString());
         final snackBar = SnackBar(
-          content: Text(ex.toString()),
-          duration: const Duration(seconds: 10),
+          content: Text(e.toString()),
+          duration: Duration(seconds: 10),
           action: SnackBarAction(
             label: 'Close',
             onPressed: () {
-              // Some code for undoing the alteration.
+              // Some code to undo the change.
             },
           ),
         );
-
-
-
-        //  _scaffoldKey.currentState!.showSnackBar(snackBar);
+        //_scaffoldKey.currentState.showSnackBar(snackBar);
       }
     });
   }
 
-  // item name, price and quantity here
-  String itemName = 'One plus 10';
-  String itemPrice = '100';
+
+
+  // item name, price and quantity
+  String itemName = 'iPhone X';
+  String itemPrice = '1.99';
   int quantity = 1;
 
   Map<String, dynamic> getOrderParams() {
@@ -83,21 +107,23 @@ class PaymentState extends State<Payment> {
         "quantity": quantity,
         "price": itemPrice,
         "currency": defaultCurrency["currency"]
+
       }
     ];
-    // Checkout Invoice Specifics
-    String totalAmount = '100';
-    String subTotalAmount = '100';
+    // checkout invoice details
+    String totalAmount = '1.99';
+    String subTotalAmount = '1.99';
     String shippingCost = '0';
     int shippingDiscountCost = 0;
-    String userFirstName = 'john';
-    String userLastName = 'smith';
-    String addressCity = 'USA';
-    String addressStreet = "i-10";
-    String addressZipCode = '44000';
-    String addressCountry = 'Pakistan';
-    String addressState = 'Islamabad';
-    String addressPhoneNumber = '+1 223 6161 789';
+    String userFirstName = 'Gulshan';
+    String userLastName = 'Yadav';
+    String addressCity = 'Delhi';
+    String addressStreet = 'Mathura Road';
+    String addressZipCode = '110014';
+    String addressCountry = 'India';
+    String addressState = 'Delhi';
+    String addressPhoneNumber = '+919990119091';
+
     Map<String, dynamic> temp = {
       "intent": "sale",
       "payer": {"payment_method": "paypal"},
@@ -109,7 +135,8 @@ class PaymentState extends State<Payment> {
             "details": {
               "subtotal": subTotalAmount,
               "shipping": shippingCost,
-              "shipping_discount": ((-1.0) * shippingDiscountCost).toString()
+              "shipping_discount":
+              ((-1.0) * shippingDiscountCost).toString()
             }
           },
           "description": "The payment transaction description.",
@@ -118,9 +145,12 @@ class PaymentState extends State<Payment> {
           },
           "item_list": {
             "items": items,
-            if (isEnableShipping && isEnableAddress)
+            if (isEnableShipping &&
+                isEnableAddress)
               "shipping_address": {
-                "recipient_name": userFirstName + " " + userLastName,
+                "recipient_name": userFirstName +
+                    " " +
+                    userLastName,
                 "line1": addressStreet,
                 "line2": "",
                 "city": addressCity,
@@ -133,7 +163,10 @@ class PaymentState extends State<Payment> {
         }
       ],
       "note_to_payer": "Contact us for any questions on your order.",
-      "redirect_urls": {"return_url": returnURL, "cancel_url": cancelURL}
+      "redirect_urls": {
+        "return_url": returnURL,
+        "cancel_url": cancelURL
+      }
     };
     return temp;
   }
@@ -141,17 +174,15 @@ class PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     print(checkoutUrl);
+
     if (checkoutUrl != null) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF0C0F1C),
 
-
-          // backgroundColor: Theme
-          //     .of(context)
-          //     .backgroundColor,
+          //backgroundColor: Theme.of(context).backgroundColor,
           leading: GestureDetector(
-            child: const Icon(Icons.arrow_back_ios),
+            child: Icon(Icons.arrow_back_ios),
             onTap: () => Navigator.pop(context),
           ),
         ),
@@ -171,12 +202,20 @@ class PaymentState extends State<Payment> {
 
                 });
               } else {
-                Navigator.of(context).pop();
+
+
+                //Navigator.of(context).pop();
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => failed()), (route) => false);
+                print("payment not succses");
               }
-              Navigator.of(context).pop();
+             // Navigator.of(context).pop();
+              print("payment not succses3");
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Success()), (route) => false);
             }
             if (request.url.contains(cancelURL)) {
               Navigator.of(context).pop();
+              print("payment not cancelURL");
+             // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => failed()), (route) => false);
             }
             return NavigationDecision.navigate;
           },
@@ -187,62 +226,17 @@ class PaymentState extends State<Payment> {
         key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.of(context).pop();
               }),
-          backgroundColor: Colors.black12,
+         // backgroundColor: Colors.black12,
+
+          backgroundColor: Color(0xFF0C0F1C),
           elevation: 0.0,
         ),
-        body: const Center(child: CircularProgressIndicator()),
+        body: Center(child: Container(child: CircularProgressIndicator())),
       );
     }
   }
 }
-//
-// import 'package:flutter/foundation.dart';
-// import 'package:flutter/gestures.dart';
-// import 'package:flutter/material.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
-//
-// class PaypalPayment extends StatelessWidget {
-//   final double amount;
-//   final String currency;
-//   const PaypalPayment({Key key,this.amount,this.currency})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         leading: GestureDetector(
-//           onTap: () {
-//             Navigator.pop(context);
-//           },
-//           child: const Icon(Icons.arrow_back_ios),
-//         ),
-//       ),
-//       body: WebView(
-//         initialUrl:
-//         'http://localhost:3000/createpaypalpayment?amount=$amount&currency=$currency',
-//         javascriptMode: JavascriptMode.unrestricted,
-//         gestureRecognizers: Set()
-//           ..add(Factory<DragGestureRecognizer>(
-//                   () => VerticalDragGestureRecognizer())),
-//         onPageFinished: (value) {
-//           print(value);
-//         },
-//         navigationDelegate: (NavigationRequest request) async {
-//           if (request.url.contains('http://return_url/?status=success')) {
-//             print('return url on success');
-//             Navigator.pop(context);
-//           }
-//           if (request.url.contains('http://cancel_url')) {
-//             Navigator.pop(context);
-//           }
-//           return NavigationDecision.navigate;
-//         },
-//       ),
-//     );
-//   }
-// }

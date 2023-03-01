@@ -3,18 +3,14 @@ import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http_auth/http_auth.dart';
 
-class Services {
+class PaypalServices {
 
   String domain = "https://api.sandbox.paypal.com"; // for sandbox mode
-  // String domain = "https://api.paypal.com"; // for production mode
+//  String domain = "https://api.paypal.com"; // for production mode
 
   // change clientId and secret with your own, provided by paypal
-  // String clientId = 'AUedUnHVJFup2E2r-JEBQmUMqOv_isN6i1JRr5AumAAVHx53-AVKYtjMjxZ-pzKjoOE94LBQdc1i';
-  // String secret = 'EFPD5SIVIui95gdZCWsPlxYZiX8XDtuYLEs4b5gjoLa3vGmSdC8qgrKP8aEpsadJ_YAuNPB7zZwD';
-  String clientId =
-  "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0";
-  String secret =
-  "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9";
+  String clientId = "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0";
+  String secret =  "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9";
 
   // for getting the access token from Paypal
   Future<String> getAccessToken() async {
@@ -84,8 +80,6 @@ class Services {
       if (response.statusCode == 200) {
         return body["id"];
       }
-      print(body);
-      print(response.body);
       return null;
     } catch (e) {
       rethrow;

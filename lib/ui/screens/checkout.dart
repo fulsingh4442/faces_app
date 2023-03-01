@@ -1,26 +1,10 @@
 import 'dart:async';
 
 import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/navigator.dart';
 import 'package:club_app/constants/strings.dart';
 import 'package:club_app/logic/bloc/create_payment_bloc.dart';
 import 'package:club_app/logic/bloc/sign_up_bloc.dart';
-import 'package:club_app/logic/bloc/stripe_keys_bloc.dart';
-import 'package:club_app/payment.dart';
 import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/ui/screens/bookings/bookings.dart';
-import 'package:club_app/ui/screens/landing.dart';
-import 'package:club_app/ui/screens/vouchers/success.dart';
-import 'package:club_app/ui/utils/card_formatter.dart';
-import 'package:club_app/ui/utils/utility.dart';
 import 'package:club_app/ui/utils/utils.dart';
 import 'package:club_app/ui/widgets/outline_border_button.dart';
 import 'package:flutter/material.dart';
@@ -43,18 +27,18 @@ class Checkout extends StatefulWidget {
 
 class _CheckoutState extends State<Checkout> {
 
-  String totalAmount = '100';
-  String subTotalAmount = '100';
-  String shippingCost = '0';
-  int shippingDiscountCost = 0;
-  String userFirstName = 'john';
-  String userLastName = 'smith';
-  String addressCity = 'USA';
-  String addressStreet = "i-10";
-  String addressZipCode = '44000';
-  String addressCountry = 'Pakistan';
-  String addressState = 'Islamabad';
-  String addressPhoneNumber = '+1 223 6161 789';
+  // String totalAmount = '100';
+  // String subTotalAmount = '100';
+  // String shippingCost = '0';
+  // int shippingDiscountCost = 0;
+  // String userFirstName = 'john';
+  // String userLastName = 'smith';
+  // String addressCity = 'USA';
+  // String addressStreet = "i-10";
+  // String addressZipCode = '44000';
+  // String addressCountry = 'Pakistan';
+  // String addressState = 'Islamabad';
+  // String addressPhoneNumber = '+1 223 6161 789';
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String dropdownValueforNationality = 'Indian';
   String dropdownValueforExpectedArrival = 'Select Time';
@@ -94,96 +78,96 @@ class _CheckoutState extends State<Checkout> {
     print("------------------decimal---------------------$decimal");
     print("------------------cents---------------------$finalAmount");
 
-    var response = await StripeService.payNowHandler(
-        amount: finalAmount.toString(), currency: 'USD');
-    print('response message ${response.message}');
-    print('${response.success}');
-    print('response ${response.message}');
-
-    if (response.success == true) {
-      setState(() {
-        loader = false;
-      });
-      submitResponse(context, response.pid, amount);
-      Timer(Duration(seconds: 2), () {
-        showDialog<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              titlePadding: EdgeInsets.only(top: 20),
-              title: Icon(
-                Icons.verified_rounded,
-                color: Colors.green,
-                size: 40,
-              ),
-              content: Container(
-                height: MediaQuery.of(context).size.height * 0.10,
-                child: Column(
-                  children: [
-                    Text(
-                      "BOOKING CONFIRMED",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Flexible(
-                      child: Text(
-                        "You will receive an email confirmation in your inbox shortly.",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                        ),
-                        child: const Text(
-                          'GO TO BOOKING PAGE',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  BookingScreen()),
-                          (route) => false,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
-        );
-      });
-
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove('public_key');
-      prefs.remove('secret_key');
-    }
-    else {
-      setState(() {
-        loader = false;
-      });
-      ackAlert(context, "Payment Failed. Please try again later.");
-    }
+    // var response = await StripeService.payNowHandler(
+    //     amount: finalAmount.toString(), currency: 'USD');
+    // print('response message ${response.message}');
+    // print('${response.success}');
+    // print('response ${response.message}');
+    //
+    // if (response.success == true) {
+    //   setState(() {
+    //     loader = false;
+    //   });
+    //   submitResponse(context, response.pid, amount);
+    //   Timer(Duration(seconds: 2), () {
+    //     showDialog<void>(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return AlertDialog(
+    //           titlePadding: EdgeInsets.only(top: 20),
+    //           title: Icon(
+    //             Icons.verified_rounded,
+    //             color: Colors.green,
+    //             size: 40,
+    //           ),
+    //           content: Container(
+    //             height: MediaQuery.of(context).size.height * 0.10,
+    //             child: Column(
+    //               children: [
+    //                 Text(
+    //                   "BOOKING CONFIRMED",
+    //                   style: TextStyle(
+    //                     fontWeight: FontWeight.bold,
+    //                   ),
+    //                 ),
+    //                 SizedBox(height: 10),
+    //                 Flexible(
+    //                   child: Text(
+    //                     "You will receive an email confirmation in your inbox shortly.",
+    //                     textAlign: TextAlign.center,
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //           actions: <Widget>[
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.center,
+    //               children: [
+    //                 TextButton(
+    //                   child: Container(
+    //                     padding: EdgeInsets.all(10),
+    //                     decoration: BoxDecoration(
+    //                       color: Colors.blue,
+    //                       borderRadius: BorderRadius.all(
+    //                         Radius.circular(5),
+    //                       ),
+    //                     ),
+    //                     child: const Text(
+    //                       'GO TO BOOKING PAGE',
+    //                       style: TextStyle(
+    //                         color: Colors.white,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   onPressed: () {
+    //                     Navigator.pushAndRemoveUntil(
+    //                       context,
+    //                       MaterialPageRoute(
+    //                           builder: (BuildContext context) =>
+    //                               BookingScreen()),
+    //                       (route) => false,
+    //                     );
+    //                   },
+    //                 ),
+    //               ],
+    //             ),
+    //           ],
+    //         );
+    //       },
+    //     );
+    //   });
+    //
+    //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+    //   prefs.remove('public_key');
+    //   prefs.remove('secret_key');
+    // }
+    // else {
+    //   setState(() {
+    //     loader = false;
+    //   });
+    //   ackAlert(context, "Payment Failed. Please try again later.");
+    // }
   }
 
   void submitResponse(BuildContext context, String pid, String amount) async {
@@ -654,80 +638,93 @@ class _CheckoutState extends State<Checkout> {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Please Enter Name")));
                           } else {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => Payment(
-                            //     )));
-
-
-
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (BuildContext context) => UsePaypal(
-                                    sandboxMode: true,
-                                    clientId:
-                                    "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
-                                    secretKey:
-                                    "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-                                    returnURL: "https://samplesite.com/return",
-                                    cancelURL: "https://samplesite.com/cancel",
-                                    transactions: [
-                                      {
-                                        "amount": {
-                                          "total": widget.total,
-                                          "currency": "USD",
-                                          "details": {
-                                            "subtotal":  widget.total,
-                                            "shipping": '0',
-                                            "shipping_discount": 0
-                                          }
-                                        },
+                                builder: (BuildContext context) => PaypalPayment(
+                                  onFinish: (number) async {
 
-                                        "description":
-                                        "The payment transaction description.",
-                                        "payment_options": {
-                                          "allowed_payment_method":
-                                              "INSTANT_FUNDING_SOURCE"
-                                        },
-                                        "item_list": {
-                                          "items": [
-                                            {
-                                              "name": "A demo product",
-                                              "quantity": 1,
-                                              "price": widget.total,
-                                              "currency": "USD"
-                                            }
-                                          ],
+                                    // payment done
+                                   // print('order id: '+number);
 
-                                          // shipping address is not required though
-                                          "shipping_address": {
-                                            "recipient_name": "Jane Foster",
-                                            "line1": "Travis County",
-                                            "line2": "",
-                                            "city": "Austin",
-                                            "country_code": "US",
-                                            "postal_code": "73301",
-                                            "phone": "+00000000",
-                                            "state": "Texas"
-                                          },
-                                        }
-                                      }
-                                    ],
-                                    note: "Contact us for any questions on your order.",
-                                    onSuccess: (Map params) async {
-                                      print("onSuccess: $params");
-                                    },
-                                    onError: (error) {
-                                      print("onError: $error");
-                                    },
-                                    onCancel: (params) {
-                                      print('cancelled: $params');
-                                    }),
-
-
-
+                                  },
+                                ),
                               ),
+                            );
+
+
+
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (BuildContext context) => UsePaypal(
+                            //         sandboxMode: true,
+                            //         clientId:
+                            //         "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
+                            //         secretKey:
+                            //         "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
+                            //         returnURL: "https://samplesite.com/return",
+                            //         cancelURL: "https://samplesite.com/cancel",
+                            //         transactions: [
+                            //           {
+                            //             "amount": {
+                            //               "total": widget.total,
+                            //               "currency": "USD",
+                            //               "details": {
+                            //                 "subtotal":  widget.total,
+                            //                 "shipping": '0',
+                            //                 "shipping_discount": 0
+                            //               }
+                            //             },
+                            //
+                            //             "description":
+                            //             "The payment transaction description.",
+                            //             "payment_options": {
+                            //               "allowed_payment_method":
+                            //                   "INSTANT_FUNDING_SOURCE"
+                            //             },
+                            //             "item_list": {
+                            //               "items": [
+                            //                 {
+                            //                   "name": "A demo product",
+                            //                   "quantity": 1,
+                            //                   "price": widget.total,
+                            //                   "currency": "USD"
+                            //                 }
+                            //               ],
+                            //
+                            //               // shipping address is not required though
+                            //               "shipping_address": {
+                            //                 "recipient_name": "Jane Foster",
+                            //                 "line1": "Travis County",
+                            //                 "line2": "",
+                            //                 "city": "Austin",
+                            //                 "country_code": "US",
+                            //                 "postal_code": "73301",
+                            //                 "phone": "+00000000",
+                            //                 "state": "Texas"
+                            //               },
+                            //             }
+                            //           }
+                            //         ],
+                            //         note: "Contact us for any questions on your order.",
+                            //         onSuccess: (Map params) async {
+                            //           print("onSuccess: $params");
+                            //         },
+                            //         onError: (error) {
+                            //           print("onError: $error");
+                            //         },
+                            //         onCancel: (params) {
+                            //           print('cancelled: $params');
+                            //         }),
+                            //   ),
+                            // );
+                            _checkOutBloc.checkout(
+                              userId.toString(),
+                              _signUpBloc.nameController.text,
+                              _signUpBloc.emailController.text,
+                              _signUpBloc.mobileController.text,
+                              widget.total.toString(),
+                              dropdownValueforPayment,
+                              context,
                             );
 
                             Timer(Duration(seconds: 2), () {
@@ -747,16 +744,16 @@ class _CheckoutState extends State<Checkout> {
                     SizedBox(height: 10),
                   ],
                 ),
-                loader
-                    ? Container(
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.30,
-                          left: MediaQuery.of(context).size.height * 0.20,
-                        ),
-
-                        child: CircularProgressIndicator(),
-                      )
-                    : Container(),
+                // loader
+                //     ? Container(
+                //         margin: EdgeInsets.only(
+                //           top: MediaQuery.of(context).size.height * 0.30,
+                //           left: MediaQuery.of(context).size.height * 0.20,
+                //         ),
+                //
+                //         child: CircularProgressIndicator(),
+                //       )
+                //     : Container(),
               ],
             ),
           ),

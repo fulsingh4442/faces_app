@@ -147,7 +147,7 @@ class MyApp extends StatelessWidget {
             TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 14.0),
           )),
       home: SplashScreen(),
-     // home: Transaction(),
+     // home: makePayment(),
       navigatorObservers: [routeObserver],
     ));
   }

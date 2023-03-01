@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../table/table_cart.dart';
-class Success extends StatefulWidget {
-  const Success({Key key}) : super(key: key);
+class failed extends StatefulWidget {
+  const failed({Key key}) : super(key: key);
 
   @override
-  State<Success> createState() => _SuccessState();
+  State<failed> createState() => _failedState();
 }
 
-class _SuccessState extends State<Success> {
+class _failedState extends State<failed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +21,14 @@ class _SuccessState extends State<Success> {
       Center(child: Container(
         margin: EdgeInsets.only(top: 180),
         child: Column(children: [
-          Image.asset('assets/images/success.gif',
+          Image.asset('assets/images/failed.gif',
             fit: BoxFit.fill,
             alignment: Alignment.bottomCenter,
             width: 100,
             // height: 60,
           ),
           SizedBox(height: 10,),
-          Text("Payment Success",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+          Text("Payment Failed",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
 
 
         ],),
