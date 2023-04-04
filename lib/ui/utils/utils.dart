@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:club_app/constants/strings.dart';
+import 'package:TIBU/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

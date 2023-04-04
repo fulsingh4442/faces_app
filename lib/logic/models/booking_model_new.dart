@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/remote/api_client.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/remote/api_client.dart';
 
 BookingModel bookingModelFromJson(String str) =>
     BookingModel.fromJson(json.decode(str));

@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';

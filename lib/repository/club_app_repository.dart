@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:club_app/repository/club_app_data_source.dart';
-import 'package:club_app/repository/club_app_remote_data_source.dart';
+//import 'package:TIBU/repository/TIBU_data_source.dart';
+//import 'package:TIBU/repository/TIBU_remote_data_source.dart';
+import 'package:TIBU/repository/club_app_data_source.dart';
+import 'package:TIBU/repository/club_app_remote_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -148,33 +150,23 @@ class ClubAppRepository extends ClubAppDataSource {
   }
 
   Future<Response> createPayment(String userId, String name, String email,
-      String phone, String rate, String paymentMethod) {
+      String phone, String rate, String paymentMethod,) {
     return clubAppRemoteDataSource.createPayment(
-        userId, name, email, phone, rate, paymentMethod);
+        userId, name, email, phone, rate, paymentMethod,);
   }
 
   Future<Response> completePayment(
-    String expectedArrival,
-    String name,
     String currency,
-    String email,
     String amount,
     String balanceTransaction,
     String orderId,
-    String guestId,
-    String cartGuestId,
     String status,
   ) {
     return clubAppRemoteDataSource.completePayment(
-      expectedArrival,
-      name,
       currency,
-      email,
       amount,
       balanceTransaction,
       orderId,
-      guestId,
-      cartGuestId,
       status,
     );
   }

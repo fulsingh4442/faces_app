@@ -1,5 +1,5 @@
-import 'package:club_app/logic/models/advertise.dart';
-import 'package:club_app/logic/models/event_model.dart';
+import 'package:TIBU/logic/models/advertise.dart';
+import 'package:TIBU/logic/models/event_model.dart';
 
 class EventsResponse {
   EventsResponse.fromJson(Map jsonMap) {

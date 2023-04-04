@@ -1,9 +1,9 @@
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/bloc/notifications_bloc.dart';
-import 'package:club_app/logic/models/notifications.dart';
-import 'package:club_app/ui/utils/utils.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/bloc/notifications_bloc.dart';
+import 'package:TIBU/logic/models/notifications.dart';
+import 'package:TIBU/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:club_app/repository/club_app_repository.dart';
-import 'package:club_app/ui/utils/utils.dart';
+import 'package:TIBU/repository/club_app_repository.dart';
+import 'package:TIBU/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:club_app/constants/strings.dart';
+import 'package:TIBU/constants/strings.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LandingBloc {

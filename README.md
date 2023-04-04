@@ -1,4 +1,4 @@
-# club_app
+# TIBU
 
 A Hotel Mangement App
 

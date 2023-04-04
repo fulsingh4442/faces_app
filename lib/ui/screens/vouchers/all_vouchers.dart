@@ -1,5 +1,5 @@
-import 'package:club_app/logic/bloc/vouchers_bloc.dart';
-import 'package:club_app/logic/models/vouchers.dart';
+import 'package:TIBU/logic/bloc/vouchers_bloc.dart';
+import 'package:TIBU/logic/models/vouchers.dart';
 import 'package:flutter/material.dart';
 
 class AllVouchers extends StatefulWidget {

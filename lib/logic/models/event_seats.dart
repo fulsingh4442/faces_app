@@ -1,4 +1,4 @@
-import 'package:club_app/logic/models/event_model.dart';
+import 'package:TIBU/logic/models/event_model.dart';
 
 class EventSeatsResponse {
   EventSeatsResponse.fromJson(Map jsonMap) {

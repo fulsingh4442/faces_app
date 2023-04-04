@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
-import 'package:club_app/logic/models/category.dart';
+import 'package:TIBU/logic/models/category.dart';
 
 import '../../repository/club_app_repository.dart';
 import 'package:flutter/cupertino.dart';

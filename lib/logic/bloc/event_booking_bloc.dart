@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/models/category.dart';
-import 'package:club_app/logic/models/event_model.dart';
-import 'package:club_app/logic/models/event_seats.dart';
-import 'package:club_app/repository/club_app_repository.dart';
-import 'package:club_app/ui/utils/utils.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/models/category.dart';
+import 'package:TIBU/logic/models/event_model.dart';
+import 'package:TIBU/logic/models/event_seats.dart';
+import 'package:TIBU/repository/club_app_repository.dart';
+import 'package:TIBU/ui/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart';

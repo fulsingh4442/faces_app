@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:club_app/constants/strings.dart';
+import 'package:TIBU/constants/strings.dart';
 
 StripeResponseModel stripeResponseModelFromJson(String str) =>
     StripeResponseModel.fromJson(json.decode(str));

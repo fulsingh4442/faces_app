@@ -21,6 +21,7 @@ class PaypalServices {
         final body = convert.jsonDecode(response.body);
         return body["access_token"];
       }
+
       return null;
     } catch (e) {
       rethrow;
@@ -37,6 +38,9 @@ class PaypalServices {
             "content-type": "application/json",
             'Authorization': 'Bearer ' + accessToken
           });
+      print( "transactions" + convert.jsonEncode(transactions));
+
+
 
       final body = convert.jsonDecode(response.body);
       if (response.statusCode == 201) {
@@ -80,6 +84,8 @@ class PaypalServices {
       if (response.statusCode == 200) {
         return body["id"];
       }
+
+
       return null;
     } catch (e) {
       rethrow;

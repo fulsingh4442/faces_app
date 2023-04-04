@@ -1,10 +1,10 @@
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/bloc/event_details_bloc.dart';
-import 'package:club_app/logic/models/event_model.dart';
-import 'package:club_app/ui/utils/utils.dart';
-import 'package:club_app/ui/widgets/outline_border_button.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/bloc/event_details_bloc.dart';
+import 'package:TIBU/logic/models/event_model.dart';
+import 'package:TIBU/ui/utils/utils.dart';
+import 'package:TIBU/ui/widgets/outline_border_button.dart';
 import 'package:flutter/material.dart';
 //import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/models/event_model.dart';
-import 'package:club_app/logic/models/login.dart';
-import 'package:club_app/logic/models/profileaccess.dart';
-import 'package:club_app/repository/club_app_repository.dart';
-import 'package:club_app/ui/screens/login.dart';
-import 'package:club_app/ui/utils/utils.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/models/event_model.dart';
+import 'package:TIBU/logic/models/login.dart';
+import 'package:TIBU/logic/models/profileaccess.dart';
+import 'package:TIBU/repository/club_app_repository.dart';
+import 'package:TIBU/ui/screens/login.dart';
+import 'package:TIBU/ui/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -58,6 +58,7 @@ class LoginBloc {
             type == "sidemenu" ||
             type == "cart" ||
             type == "bidding") {
+
           AppNavigator.gotoLanding(context);
         } else if (type == "enddrawer") {
           AppNavigator.gotoBookings(context);

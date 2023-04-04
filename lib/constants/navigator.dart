@@ -1,21 +1,21 @@
-import 'package:club_app/logic/models/add_on_model.dart';
-import 'package:club_app/logic/models/cart_table_event_model.dart';
-import 'package:club_app/logic/models/event_model.dart';
-import 'package:club_app/logic/models/notification_model.dart';
-import 'package:club_app/logic/models/tables_model.dart';
-import 'package:club_app/ui/screens/bookings/bookings.dart';
-import 'package:club_app/ui/screens/event_booking.dart';
-import 'package:club_app/ui/screens/event_details.dart';
-import 'package:club_app/ui/screens/guest_list.dart';
-import 'package:club_app/ui/screens/landing.dart';
-import 'package:club_app/ui/screens/login.dart';
-import 'package:club_app/ui/screens/notification.dart';
-import 'package:club_app/ui/screens/profile/profile_screen.dart';
-import 'package:club_app/ui/screens/qrcode/qr_code_screen.dart';
-import 'package:club_app/ui/screens/select_branch.dart';
-import 'package:club_app/ui/screens/table/add_on.dart';
-import 'package:club_app/ui/screens/table/table_cart.dart';
-import 'package:club_app/ui/screens/table/table_new.dart';
+import 'package:TIBU/logic/models/add_on_model.dart';
+import 'package:TIBU/logic/models/cart_table_event_model.dart';
+import 'package:TIBU/logic/models/event_model.dart';
+import 'package:TIBU/logic/models/notification_model.dart';
+import 'package:TIBU/logic/models/tables_model.dart';
+import 'package:TIBU/ui/screens/bookings/bookings.dart';
+import 'package:TIBU/ui/screens/event_booking.dart';
+import 'package:TIBU/ui/screens/event_details.dart';
+import 'package:TIBU/ui/screens/guest_list.dart';
+import 'package:TIBU/ui/screens/landing.dart';
+import 'package:TIBU/ui/screens/login.dart';
+import 'package:TIBU/ui/screens/notification.dart';
+import 'package:TIBU/ui/screens/profile/profile_screen.dart';
+import 'package:TIBU/ui/screens/qrcode/qr_code_screen.dart';
+import 'package:TIBU/ui/screens/select_branch.dart';
+import 'package:TIBU/ui/screens/table/add_on.dart';
+import 'package:TIBU/ui/screens/table/table_cart.dart';
+import 'package:TIBU/ui/screens/table/table_new.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigator {
@@ -90,8 +90,8 @@ class AppNavigator {
 
   static void gotoAddOns(BuildContext context) {
     final Route<AddOns> route = MaterialPageRoute<AddOns>(
-        settings: RouteSettings(name: '/table_cart'),
-        builder: (BuildContext context) => TableCart(false));
+        settings: RouteSettings(name: '/add_ons'),
+        builder: (BuildContext context) => AddOns());
     Navigator.push(context, route);
   }
 

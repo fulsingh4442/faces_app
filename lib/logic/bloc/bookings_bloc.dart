@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/models/booking_event.dart';
-import 'package:club_app/logic/models/booking_guest_list.dart';
-import 'package:club_app/logic/models/booking_model.dart';
-import 'package:club_app/logic/models/booking_model_new.dart';
-import 'package:club_app/logic/models/booking_table.dart';
-import 'package:club_app/logic/models/booking_vouchers.dart';
-import 'package:club_app/repository/club_app_repository.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/models/booking_event.dart';
+import 'package:TIBU/logic/models/booking_guest_list.dart';
+import 'package:TIBU/logic/models/booking_model.dart';
+import 'package:TIBU/logic/models/booking_model_new.dart';
+import 'package:TIBU/logic/models/booking_table.dart';
+import 'package:TIBU/logic/models/booking_vouchers.dart';
+import 'package:TIBU/repository/club_app_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';

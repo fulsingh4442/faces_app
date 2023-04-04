@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/ui/widgets/outline_border_button.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/ui/widgets/outline_border_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

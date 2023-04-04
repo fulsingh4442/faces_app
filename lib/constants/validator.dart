@@ -1,4 +1,4 @@
-import 'package:club_app/constants/strings.dart';
+import 'package:TIBU/constants/strings.dart';
 
 class Validator {
   static const Pattern pattern =

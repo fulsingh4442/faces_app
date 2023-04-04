@@ -2,22 +2,22 @@
 
 import 'dart:convert';
 
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/bloc/landing_bloc.dart';
-import 'package:club_app/observer/user_profile_observable.dart';
-import 'package:club_app/observer/user_profile_observer.dart';
-import 'package:club_app/ui/screens/bidding.dart';
-import 'package:club_app/ui/screens/events.dart';
-import 'package:club_app/ui/screens/login.dart';
-import 'package:club_app/ui/screens/select_branch.dart';
-import 'package:club_app/ui/screens/table/table_cart.dart';
-import 'package:club_app/ui/screens/table/table_new.dart';
-import 'package:club_app/ui/utils/push_notification_manager.dart';
-import 'package:club_app/ui/utils/size_config.dart';
-import 'package:club_app/ui/utils/utility.dart';
-import 'package:club_app/ui/utils/utils.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/bloc/landing_bloc.dart';
+import 'package:TIBU/observer/user_profile_observable.dart';
+import 'package:TIBU/observer/user_profile_observer.dart';
+import 'package:TIBU/ui/screens/bidding.dart';
+import 'package:TIBU/ui/screens/events.dart';
+import 'package:TIBU/ui/screens/login.dart';
+import 'package:TIBU/ui/screens/select_branch.dart';
+import 'package:TIBU/ui/screens/table/table_cart.dart';
+import 'package:TIBU/ui/screens/table/table_new.dart';
+import 'package:TIBU/ui/utils/push_notification_manager.dart';
+import 'package:TIBU/ui/utils/size_config.dart';
+import 'package:TIBU/ui/utils/utility.dart';
+import 'package:TIBU/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,7 +60,7 @@ class _LandingScreenState extends State<LandingScreen>
 
   Future<void> photos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-      photo = prefs.getString('photo') ?? '';
+    photo = prefs.getString('photo') ?? '';
   }
   @override
   void dispose() {
@@ -100,53 +100,53 @@ class _LandingScreenState extends State<LandingScreen>
   ];
 
   Widget _buildBottomNavigationBar(BuildContext context) => Theme(
-        data: Theme.of(context).copyWith(
-          // sets the background color of the `BottomNavigationBar`
-          canvasColor: colorPrimary,
-          // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-          //primaryColor: Colors.red,
-          // sets the inactive color of the `BottomNavigationBar`
-          /*textTheme: Theme.of(context).textTheme.copyWith(
+    data: Theme.of(context).copyWith(
+      // sets the background color of the `BottomNavigationBar`
+      canvasColor: colorPrimary,
+      // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+      //primaryColor: Colors.red,
+      // sets the inactive color of the `BottomNavigationBar`
+      /*textTheme: Theme.of(context).textTheme.copyWith(
                 caption: TextStyle(color: Colors.yellow),
               ),*/
+    ),
+    child: BottomNavigationBar(
+      backgroundColor: bottomNavigationBackground,
+      selectedItemColor: navigationItemSelectedColor,
+      unselectedItemColor: navigationItemUnSelectedColor,
+      selectedFontSize: 12,
+      unselectedFontSize: 10,
+
+      showUnselectedLabels: true,
+      currentIndex: _currentIndex,
+      onTap: _onTabTapped,
+      // this will be set when a new tab is tapped
+      items: [
+
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.local_activity),
+        //   title: const Text('Vouchers'),
+        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.local_bar),
+          label: 'Table',
         ),
-        child: BottomNavigationBar(
-          backgroundColor: bottomNavigationBackground,
-          selectedItemColor: navigationItemSelectedColor,
-          unselectedItemColor: navigationItemUnSelectedColor,
-          selectedFontSize: 12,
-          unselectedFontSize: 10,
-
-          showUnselectedLabels: true,
-          currentIndex: _currentIndex,
-          onTap: _onTabTapped,
-          // this will be set when a new tab is tapped
-          items: [
-
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.local_activity),
-            //   title: const Text('Vouchers'),
-            // ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.local_bar),
-              label: 'Table',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.event),
-              label: 'Events',
-            ),
-
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Cart',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu),
-              label: 'Menu',
-            )
-          ],
+        BottomNavigationBarItem(
+          icon: Icon(Icons.event),
+          label: 'Events',
         ),
-      );
+
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart),
+          label: 'Cart',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu),
+          label: 'Menu',
+        )
+      ],
+    ),
+  );
 
   void _onTabTapped(int index) {
     if (index != 3) {
@@ -582,8 +582,8 @@ class _LandingScreenState extends State<LandingScreen>
                 color: drawerColor,
                 child: InkWell(
                   onTap: () {
-                     Navigator.pop(context);
-                     AppNavigator.gotoProfileScreen(context);
+                    Navigator.pop(context);
+                    AppNavigator.gotoProfileScreen(context);
                   },
                   child: Row(
                     children: [
@@ -599,8 +599,8 @@ class _LandingScreenState extends State<LandingScreen>
                               }
 
                               return Text(_isloggedin == true ? userName : "",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold  ),
-                                 // style: Theme.of(context).textTheme.headline
-                                  );
+                                // style: Theme.of(context).textTheme.headline
+                              );
                             },
                           ),
                           SizedBox(
@@ -907,7 +907,8 @@ class _LandingScreenState extends State<LandingScreen>
                   if (_isloggedin == true) {
                     final SharedPreferences prefs =
                     await SharedPreferences.getInstance();
-                    prefs.setBool(ClubApp.loginSuccess, false);
+                    prefs.clear();
+                    // prefs.setBool(ClubApp.loginSuccess, false);
                     //await _landingBloc.registerDeregisterToken(false);
                     //prefs.setString(ClubApp.token, null);
                     // SystemNavigator.pop();

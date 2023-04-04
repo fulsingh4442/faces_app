@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/models/checkout.dart';
-import 'package:club_app/observer/user_profile_observable.dart';
-import 'package:club_app/repository/club_app_repository.dart';
-import 'package:club_app/ui/screens/checkout.dart';
-import 'package:club_app/ui/screens/landing.dart';
-import 'package:club_app/ui/screens/table/table_new.dart';
-import 'package:club_app/ui/utils/utils.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/models/checkout.dart';
+import 'package:TIBU/observer/user_profile_observable.dart';
+import 'package:TIBU/repository/club_app_repository.dart';
+import 'package:TIBU/ui/screens/checkout.dart';
+import 'package:TIBU/ui/screens/landing.dart';
+import 'package:TIBU/ui/screens/table/table_new.dart';
+import 'package:TIBU/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart';
@@ -25,10 +25,10 @@ class CheckOutBloc {
   }
 
   Future<void> checkout(String userId, String name, String email, String phone,
-      String rate, String paymentMethod, BuildContext context) async {
+      String rate, String paymentMethod,BuildContext context) async {
     loaderController.add(true);
     _repository
-        .createPayment(userId, name, email, phone, rate, paymentMethod)
+        .createPayment(userId, name, email, phone, rate, paymentMethod,)
         .then((Response response) async {
       debugPrint('create payment api response is ${response.body}');
       checkoutModel = CheckoutModel.fromJson(json.decode(response.body));
@@ -50,29 +50,20 @@ class CheckOutBloc {
   }
 
   Future<void> completePayment(
-      String expectedArrival,
-      String name,
       String currency,
-      String email,
       String amount,
       String balanceTransaction,
       String orderId,
-      String guestId,
-      String cartGuestId,
+
       String status,
       BuildContext context) async {
     loaderController.add(true);
     _repository
         .completePayment(
-      expectedArrival,
-      name,
       currency,
-      email,
       amount,
       balanceTransaction,
       orderId,
-      guestId,
-      cartGuestId,
       status,
     )
         .then((Response response) async {

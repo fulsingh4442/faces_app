@@ -1,5 +1,5 @@
-import 'package:club_app/observer/observable.dart';
-import 'package:club_app/observer/user_profile_observer.dart';
+import 'package:TIBU/observer/observable.dart';
+import 'package:TIBU/observer/user_profile_observer.dart';
 
 class UserProfileObservable implements Observable<UserProfileObserver>{
   static List<UserProfileObserver> userProfileObserverList = <UserProfileObserver>[];

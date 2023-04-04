@@ -3,21 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>767933880284-gn66t8fbdeqt6pthgcnujjpt97r0tv44.apps.googleusercontent.com</string>
+	<string>
+374151873688-gn66t8fbdeqt6pthgcnujjpt97r0tv44.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.767933880284-gn66t8fbdeqt6pthgcnujjpt97r0tv44</string>
+	<string>com.googleusercontent.apps.
+374151873688-gn66t8fbdeqt6pthgcnujjpt97r0tv44</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCfE2AIdZqySMwHL30tZe4KNDesC5KEhhk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>767933880284</string>
+	<string>
+374151873688</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.nightclub.clubApp.clubApp</string>
 	<key>PROJECT_ID</key>
-	<string>luna-group-fae54</string>
+	<string>tibu-project</string>
 	<key>STORAGE_BUCKET</key>
-	<string>luna-group-fae54.appspot.com</string>
+	<string>tibu-project.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +32,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:767933880284:ios:5d3b2a8cb485e3d0c56119</string>
+	<string>1:374151873688:ios:f55e105e036f2afce07ced</string>
 </dict>
 </plist>

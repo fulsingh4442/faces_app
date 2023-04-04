@@ -47,30 +47,55 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBevCjO2A8sKXHVI0q8BsMA6oXC3DsrKBA',
-    appId: '1:767933880284:android:2b99beb122f1c799c56119',
-    messagingSenderId: '767933880284',
-    projectId: 'luna-group-fae54',
-    storageBucket: 'luna-group-fae54.appspot.com',
+    apiKey: 'AIzaSyB2-7cvtULc4YdpNQUZXIFbR1EinEY1t-k',
+
+
+    appId: '1:374151873688:android:0ae705a4d4b601aae07ced',
+
+
+
+
+    messagingSenderId: '374151873688',
+
+    projectId: 'tibu-project',
+
+
+    storageBucket: 'tibu-project.appspot.com',
+
+
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCfE2AIdZqySMwHL30tZe4KNDesC5KEhhk',
-    appId: '1:767933880284:ios:c306f108578dca5ac56119',
-    messagingSenderId: '767933880284',
-    projectId: 'luna-group-fae54',
-    storageBucket: 'luna-group-fae54.appspot.com',
-    iosClientId: '767933880284-01nvkn851k6r9v3pj5sn71qcq99r4sfs.apps.googleusercontent.com',
+    appId: ' 1:374151873688:ios:f55e105e036f2afce07ced',
+
+
+    messagingSenderId: '374151873688',
+
+    projectId: 'tibu-project',
+
+
+    storageBucket: 'tibu-project.appspot.com',
+
+
+    iosClientId: '374151873688-01nvkn851k6r9v3pj5sn71qcq99r4sfs.apps.googleusercontent.com',
+
     iosBundleId: 'com.facesdemo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCfE2AIdZqySMwHL30tZe4KNDesC5KEhhk',
-    appId: '1:767933880284:ios:5d3b2a8cb485e3d0c56119',
-    messagingSenderId: '767933880284',
-    projectId: 'luna-group-fae54',
-    storageBucket: 'luna-group-fae54.appspot.com',
-    iosClientId: '767933880284-gn66t8fbdeqt6pthgcnujjpt97r0tv44.apps.googleusercontent.com',
+    appId: '1:374151873688:ios:f55e105e036f2afce07ced',
+    messagingSenderId: '374151873688',
+
+    projectId: 'tibu-project',
+
+
+    storageBucket: 'tibu-project.appspot.com',
+
+
+    iosClientId: '374151873688-gn66t8fbdeqt6pthgcnujjpt97r0tv44.apps.googleusercontent.com',
+
     iosBundleId: 'com.nightclub.clubApp.clubApp',
   );
 }

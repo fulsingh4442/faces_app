@@ -1,17 +1,17 @@
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/bloc/bookings_bloc.dart';
-import 'package:club_app/logic/models/booking_event.dart';
-import 'package:club_app/logic/models/booking_guest_list.dart';
-import 'package:club_app/logic/models/booking_model.dart';
-import 'package:club_app/logic/models/booking_model_new.dart';
-import 'package:club_app/logic/models/booking_table.dart';
-import 'package:club_app/logic/models/booking_vouchers.dart';
-import 'package:club_app/ui/utils/utils.dart';
-import 'package:club_app/ui/widgets/outline_border_button.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/bloc/bookings_bloc.dart';
+import 'package:TIBU/logic/models/booking_event.dart';
+import 'package:TIBU/logic/models/booking_guest_list.dart';
+import 'package:TIBU/logic/models/booking_model.dart';
+import 'package:TIBU/logic/models/booking_model_new.dart';
+import 'package:TIBU/logic/models/booking_table.dart';
+import 'package:TIBU/logic/models/booking_vouchers.dart';
+import 'package:TIBU/ui/utils/utils.dart';
+import 'package:TIBU/ui/widgets/outline_border_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:club_app/constants/constants.dart';
+import 'package:TIBU/constants/constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:expandable/expandable.dart';
 
@@ -630,25 +630,26 @@ class _bookingScreenState extends State<BookingScreen> {
                   null ||
               _bookingBloc.bookingModel.result[globalIndex][index].event !=
                   null)
-            OutlineBorderButton(
-                buttonBackground,
-                12.0,
-                15.0,
-                "View QR",
-                Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    .apply(color: Colors.white), onPressed: () async {
-              await showDialog(
-                  context: context,
-                  builder: (_) => ImageDialog(_bookingBloc
-                              .bookingModel.result[globalIndex][index].table ==
-                          null
-                      ? _bookingBloc
-                          .bookingModel.result[globalIndex][index].event.qrcode
-                      : _bookingBloc.bookingModel.result[globalIndex][index]
-                          .table.qrcode));
-            }),
+            // OutlineBorderButton(
+            //     buttonBackground,
+            //     12.0,
+            //     15.0,
+            //     "View QR",
+            //     Theme.of(context)
+            //         .textTheme
+            //         .subtitle1
+            //         .apply(color: Colors.white), onPressed: () async {
+            //   await showDialog(
+            //       context: context,
+            //       builder: (_) => ImageDialog(_bookingBloc
+            //                   .bookingModel.result[globalIndex][index].table ==
+            //               null
+            //           ? _bookingBloc
+            //               .bookingModel.result[globalIndex][index].event.qrcode
+            //           : _bookingBloc.bookingModel.result[globalIndex][index]
+            //               .table.qrcode));
+            // }),
+            Text(""),
         ]));
   }
 

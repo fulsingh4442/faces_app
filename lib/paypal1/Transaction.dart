@@ -1,4 +1,4 @@
-// import 'package:club_app/paypal1/Payment.dart';
+// import 'package:TIBU/paypal1/Payment.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/cupertino.dart';
 //

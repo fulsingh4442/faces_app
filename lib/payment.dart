@@ -1,7 +1,7 @@
 // import 'dart:convert';
 //
-// import 'package:club_app/ui/screens/landing.dart';
-// import 'package:club_app/ui/utils/utils.dart';
+// import 'package:TIBU/ui/screens/landing.dart';
+// import 'package:TIBU/ui/utils/utils.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 // // import 'package:stripe_payment/stripe_payment.dart';?
@@ -60,6 +60,7 @@
 //       print("response");
 //       print(jsonDecode(response.body));
 //       return jsonDecode(response.body);
+//
 //     } catch (error) {
 //       print('error Happened');
 //       throw error;
@@ -156,3 +157,270 @@
 //     return StripeTransactionResponse(message: message, success: false);
 //   }
 // }
+// // import 'package:flutter/material.dart';
+// // import 'package:photo_view/photo_view.dart';
+// // import 'package:photo_view/photo_view_gallery.dart';
+// //
+// //
+// //
+// // class CustomLoader extends StatefulWidget {
+// //   const CustomLoader({Key key}) : super(key: key);
+// //
+// //   @override
+// //   State<CustomLoader> createState() => _CustomLoaderState();
+// // }
+// //
+// // class _CustomLoaderState extends State<CustomLoader> with TickerProviderStateMixin {
+// //
+// //
+// //
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return Container(
+// //         child:  PhotoView(
+// //           imageProvider: AssetImage("assets/images/login.jpg"),
+// //         )
+// //     );
+// //   }
+// // }
+///////////////////////////////////////////
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
+//
+// class My extends StatefulWidget {
+//   My({Key key}) : super(key: key);
+//
+//   @override
+//   MyState createState() {
+//     return MyState();
+//   }
+// }
+//
+// class MyState extends State<My> {
+//   final items = List<String>.generate(20, (i) => "Item ${i + 1} A B C D E... X Y Z");
+//
+//   String whatHappened;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final title = 'Notification Items List';
+//
+//     return MaterialApp(
+//       title: title,
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text(title),
+//         ),
+//         body: ListView.builder(
+//           itemCount: items.length,
+//           itemBuilder: (context, index) {
+//             final item = items[index];
+//
+//             return Dismissible(
+//               key: Key(item),
+//               onDismissed: (direction) {
+//                 setState(() {
+//                   items.removeAt(index);
+//                 });
+//
+//                 // Scaffold.of(context)
+//                 //     .showSnackBar(SnackBar(content: Text("$item was $whatHappened")));
+//                 ScaffoldMessenger.of(context).showSnackBar(
+//                     SnackBar(content: Text("$item was $whatHappened")));
+//               },
+//
+//               confirmDismiss: (DismissDirection dismissDirection) async {
+//                 switch(dismissDirection) {
+//                   case DismissDirection.endToStart:
+//                     whatHappened = 'ARCHIVED';
+//                     return await _showConfirmationDialog(context, 'Archive') == true;
+//                   case DismissDirection.startToEnd:
+//                     whatHappened = 'DELETED';
+//                     return await _showConfirmationDialog(context, 'Delete') == true;
+//                   case DismissDirection.horizontal:
+//                   case DismissDirection.vertical:
+//                   case DismissDirection.up:
+//                   case DismissDirection.down:
+//                     assert(false);
+//                 }
+//                 return false;
+//               },
+//
+//
+//
+//               background: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12.0),
+//                 color: Colors.red,
+//                 alignment: Alignment.centerLeft,
+//                 child: Icon(Icons.cancel),
+//               ),
+//               secondaryBackground: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12.0),
+//                 color: Colors.green,
+//                 alignment: Alignment.centerRight,
+//                 child: Icon(Icons.check),
+//               ),
+//
+//
+//
+//               child: ListTile(title: Text('$item')),
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// Future<bool> _showConfirmationDialog(BuildContext context, String action) {
+//   return showDialog<bool>(
+//     context: context,
+//     barrierDismissible: true,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text('Do you want to $action this item?'),
+//         actions: <Widget>[
+//           ElevatedButton(
+//             child: const Text('Yes'),
+//             onPressed: () {
+//               Navigator.pop(context, true); // showDialog() returns true
+//             },
+//           ),
+//           ElevatedButton(
+//             child: const Text('No'),
+//             onPressed: () {
+//               Navigator.pop(context, false); // showDialog() returns false
+//             },
+//           ),
+//         ],
+//       );
+//     },
+//   );
+// }
+
+import 'package:flutter/material.dart';
+
+
+
+class My extends StatefulWidget {
+  createState() => MyState();
+}
+
+List<String> listItems = [
+  "One",
+  "Two",
+  "Three",
+  "Four",
+]; //dummy list of items
+
+class MyState extends State<My> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Swipe List"),
+          ),
+          body: Container(
+              child: ListView.builder(
+                itemCount: listItems.length,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                      background: stackBehindDismiss(),
+                      secondaryBackground: secondarystackBehindDismiss(),
+                      key: ObjectKey(listItems[index]),
+                      child: Container(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(listItems[index]),
+                      ),
+                      onDismissed: (direction) {
+                        if (direction == DismissDirection.startToEnd) {
+                          print("Add to favorite");
+                          //add "add to favorite" function
+                        } else {
+                          print('Remove item');
+                          deleteItem(index);
+                        }
+                      },
+                      confirmDismiss: (DismissDirection direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Confirm"),
+                              content: direction == DismissDirection.startToEnd
+                                  ? Text(
+                                  "Are you sure you wish add to favorite this item?")
+                                  : Text(
+                                  "Are you sure you wish to delete this item?"),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  onPressed: () => Navigator.of(context).pop(true),
+                                  child: direction == DismissDirection.startToEnd
+                                      ? Text("FAVORITE")
+                                      : Text("DELETE"),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => Navigator.of(context).pop(false),
+                                  child: const Text("CANCEL"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      });
+                },
+              )),
+        ));
+  }
+
+  void deleteItem(index) {
+    setState(() {
+      listItems.removeAt(index);
+    });
+  }
+
+  void undoDeletion(index, item) {
+    setState(() {
+      listItems.insert(index, item);
+    });
+  }
+
+  Widget secondarystackBehindDismiss() {
+    return Container(
+      color: Colors.red,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Icon(Icons.delete, color: Colors.white),
+            Text('Move to trash', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget stackBehindDismiss() {
+    return Container(
+      color: Colors.blue,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          children: [
+            Icon(Icons.favorite, color: Colors.white),
+            Text('Move to favorites', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+}

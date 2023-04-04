@@ -1,5 +1,5 @@
-import 'package:club_app/observer/add_on_observer.dart';
-import 'package:club_app/observer/observable.dart';
+import 'package:TIBU/observer/add_on_observer.dart';
+import 'package:TIBU/observer/observable.dart';
 
 class AddOnObservable implements Observable<AddOnObserver> {
   static List<AddOnObserver> addOnObserverList = <AddOnObserver>[];

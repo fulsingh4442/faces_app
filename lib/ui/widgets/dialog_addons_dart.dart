@@ -1,6 +1,6 @@
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/logic/models/cart_table_event_model.dart';
-import 'package:club_app/logic/models/tables_model.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/logic/models/cart_table_event_model.dart';
+import 'package:TIBU/logic/models/tables_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

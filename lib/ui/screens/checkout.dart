@@ -1,18 +1,24 @@
 import 'dart:async';
-
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/bloc/create_payment_bloc.dart';
-import 'package:club_app/logic/bloc/sign_up_bloc.dart';
-import 'package:club_app/paypal1/Payment.dart';
-import 'package:club_app/ui/utils/utils.dart';
-import 'package:club_app/ui/widgets/outline_border_button.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/bloc/add_on_bloc.dart';
+import 'package:TIBU/logic/bloc/create_payment_bloc.dart';
+import 'package:TIBU/logic/bloc/sign_up_bloc.dart';
+import 'package:TIBU/payment.dart';
+import 'package:TIBU/paypal1/Payment.dart';
+import 'package:TIBU/paypal1/Services.dart';
+import 'package:TIBU/ui/screens/bookings/bookings.dart';
+import 'package:TIBU/ui/screens/login.dart';
+import 'package:TIBU/ui/utils/utils.dart';
+import 'package:TIBU/ui/widgets/outline_border_button.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 
 import '../../paypal1/Payment.dart';
@@ -27,27 +33,40 @@ class Checkout extends StatefulWidget {
 
 class _CheckoutState extends State<Checkout> {
 
-  // String totalAmount = '100';
-  // String subTotalAmount = '100';
-  // String shippingCost = '0';
-  // int shippingDiscountCost = 0;
-  // String userFirstName = 'john';
-  // String userLastName = 'smith';
-  // String addressCity = 'USA';
-  // String addressStreet = "i-10";
-  // String addressZipCode = '44000';
-  // String addressCountry = 'Pakistan';
-  // String addressState = 'Islamabad';
-  // String addressPhoneNumber = '+1 223 6161 789';
+  Future<Response> completePayment(
+      String currency,
+      String amount,
+      String balanceTransaction,
+      String orderId,
+      String status,
+      ) async {
+    Map<String, dynamic> body = <String, dynamic>{
+      'currency': currency,
+      'amount': amount,
+      'balance_transaction': balanceTransaction,
+      'order_id': orderId,
+      'status': status,
+    };
+    debugPrint(
+        'Calling Complete payment profile api ---->  ${ClubApp().complete_payment} with body $body');
+    final Response response =
+    await http.post(Uri.parse(ClubApp().complete_payment), body: body);
+    print(response);
+
+    return response;
+  }
+
+  AddOnsBloc _addOnsBloc;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String dropdownValueforNationality = 'Indian';
   String dropdownValueforExpectedArrival = 'Select Time';
-  String dropdownValueforPayment = 'Select Payment Method';
+  String dropdownValueforPayment = 'PayPal';
   bool isChecked = false;
   TextEditingController _textcontroller = TextEditingController();
 
   SignUpBloc _signUpBloc;
   CheckOutBloc _checkOutBloc;
+  PaypalServices _paypalServices;
   bool loader = false;
 
   @override
@@ -55,6 +74,7 @@ class _CheckoutState extends State<Checkout> {
     super.initState();
     _checkOutBloc = CheckOutBloc();
     _signUpBloc = SignUpBloc();
+    _paypalServices =  PaypalServices();
     handleProfileAPI();
     //StripeService.init();
   }
@@ -77,6 +97,7 @@ class _CheckoutState extends State<Checkout> {
     print("------------------integer---------------------$integer");
     print("------------------decimal---------------------$decimal");
     print("------------------cents---------------------$finalAmount");
+
 
     // var response = await StripeService.payNowHandler(
     //     amount: finalAmount.toString(), currency: 'USD');
@@ -176,15 +197,10 @@ class _CheckoutState extends State<Checkout> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       int userId = prefs.getInt(ClubApp.userId);
       _checkOutBloc.completePayment(
-          dropdownValueforExpectedArrival,
-          _signUpBloc.nameController.text,
-          "USD",
-          _signUpBloc.emailController.text,
+          "EUR",
           amount,
           pid,
           _checkOutBloc.checkoutModel.data.orderId,
-          _checkOutBloc.checkoutModel.data.guestId.toString(),
-          userId.toString(),
           "succeeded",
           context);
     } else {
@@ -287,25 +303,32 @@ class _CheckoutState extends State<Checkout> {
                     Row(
                       children: [
                         Container(
+
                           width: MediaQuery.of(context).size.width * 0.85,
                           height: MediaQuery.of(context).size.height * 0.05,
-                          child: TextFormField(
-                            controller: _signUpBloc.nameController,
-                            style: TextStyle(color: Colors.white),
-                            cursorColor: Colors.white,
-                            decoration: InputDecoration(
-                              hintText: "Name",
-                              hintStyle: TextStyle(color: Colors.white),
-                              fillColor: Colors.white,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.5),
-                                borderRadius: BorderRadius.circular(25.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.5),
-                                borderRadius: BorderRadius.circular(25.0),
+                          child: Container(
+                           // alignment: Alignment.center,
+                           // margin: EdgeInsets.only(bottom: 10),
+                            child: TextFormField(
+                              controller: _signUpBloc.nameController,
+                              style: TextStyle(color: Colors.white),
+
+                              cursorColor: Colors.white,
+                              decoration: InputDecoration(
+                                hintText: "Name",
+                                contentPadding: EdgeInsets.only(top: 12,left: 10),
+                                hintStyle: TextStyle(color: Colors.white),
+                                fillColor: Colors.white,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.white, width: 0.5),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.white, width: 0.5),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
                               ),
                             ),
                           ),
@@ -333,17 +356,18 @@ class _CheckoutState extends State<Checkout> {
                             cursorColor: Colors.white,
                             decoration: InputDecoration(
                               hintText: "Your Email",
+                              contentPadding: EdgeInsets.only(top: 12,left: 10),
                               hintStyle: TextStyle(color: Colors.white),
                               fillColor: Colors.white,
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     color: Colors.white, width: 0.5),
-                                borderRadius: BorderRadius.circular(25.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     color: Colors.white, width: 0.5),
-                                borderRadius: BorderRadius.circular(25.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
@@ -413,9 +437,14 @@ class _CheckoutState extends State<Checkout> {
                     Row(
                       children: [
                         Container(
+
                           width: MediaQuery.of(context).size.width * 0.85,
                           height: MediaQuery.of(context).size.height * 0.05,
                           child: TextFormField(
+
+
+                            //textAlign: TextAlign.center,
+
                             controller: _signUpBloc.mobileController,
                             keyboardType: TextInputType.number,
                             maxLength: 10,
@@ -424,77 +453,78 @@ class _CheckoutState extends State<Checkout> {
                             decoration: InputDecoration(
                               counterText: "",
                               hintText: "Phone",
+                              contentPadding: EdgeInsets.only(top: 12,left: 10),
                               hintStyle: TextStyle(color: Colors.white),
                               fillColor: Colors.white,
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     color: Colors.white, width: 0.5),
-                                borderRadius: BorderRadius.circular(25.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     color: Colors.white, width: 0.5),
-                                borderRadius: BorderRadius.circular(25.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
                         )
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Text("Expected Arrival",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ))
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Container(
-                            width: MediaQuery.of(context).size.width * 0.85,
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: appBackgroundColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                              border:
-                                  Border.all(color: Colors.white, width: 0.5),
-                            ),
-                            child: DropdownButton(
-                              value: dropdownValueforExpectedArrival,
-                              dropdownColor: Colors.grey.shade700,
-                              isExpanded: true,
-                              underline: Container(),
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.white,
-                              ),
-                              style: TextStyle(color: Colors.white),
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  dropdownValueforExpectedArrival = newValue;
-                                });
-                              },
-                              items: <String>[
-                                'Select Time',
-                                '9:00 PM',
-                                '9:15 PM',
-                                '9:30 PM',
-                                '9:45 PM',
-                                '10:00 PM'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ))
-                      ],
-                    ),
+                    // SizedBox(height: 10),
+                    // Row(
+                    //   children: [
+                    //     Text("Expected Arrival",
+                    //         style: TextStyle(
+                    //           color: Colors.white,
+                    //         ))
+                    //   ],
+                    // ),
+                    // SizedBox(height: 5),
+                    // Row(
+                    //   children: [
+                    //     Container(
+                    //         width: MediaQuery.of(context).size.width * 0.85,
+                    //         height: MediaQuery.of(context).size.height * 0.05,
+                    //         padding: EdgeInsets.all(10),
+                    //         decoration: BoxDecoration(
+                    //           color: appBackgroundColor,
+                    //           borderRadius:
+                    //               BorderRadius.all(Radius.circular(10)),
+                    //           border:
+                    //               Border.all(color: Colors.white, width: 0.5),
+                    //         ),
+                    //         child: DropdownButton(
+                    //           value: dropdownValueforExpectedArrival,
+                    //           dropdownColor: Colors.grey.shade700,
+                    //           isExpanded: true,
+                    //           underline: Container(),
+                    //           icon: Icon(
+                    //             Icons.keyboard_arrow_down,
+                    //             color: Colors.white,
+                    //           ),
+                    //           style: TextStyle(color: Colors.white),
+                    //           onChanged: (String newValue) {
+                    //             setState(() {
+                    //               dropdownValueforExpectedArrival = newValue;
+                    //             });
+                    //           },
+                    //           items: <String>[
+                    //             'Select Time',
+                    //             '9:00 PM',
+                    //             '9:15 PM',
+                    //             '9:30 PM',
+                    //             '9:45 PM',
+                    //             '10:00 PM'
+                    //           ].map<DropdownMenuItem<String>>((String value) {
+                    //             return DropdownMenuItem<String>(
+                    //               value: value,
+                    //               child: Text(value),
+                    //             );
+                    //           }).toList(),
+                    //         ))
+                    //   ],
+                    // ),
                     SizedBox(height: 10),
                     // Row(
                     //   children: [
@@ -612,138 +642,216 @@ class _CheckoutState extends State<Checkout> {
                     //   ],
                     // ),
                     SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        OutlineBorderButton(
-
-                            buttonBackground,
-                            12.0,
-                            32.0,
-                            ClubApp.btn_checkout,
-                            Theme.of(context).textTheme.subtitle1.apply(
-                                color: Colors.white), onPressed: () async {
-                          print("checkout button------------------");
-                          setState(() {
-                            loader = true;
-                          });
-                          final SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          int userId = prefs.getInt(ClubApp.userId);
-
-                          if (_signUpBloc.nameController.text.isEmpty) {
-                            setState(() {
-                              loader = false;
-                            });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Please Enter Name")));
-                          } else {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => PaypalPayment(
-                                  onFinish: (number) async {
-
-                                    // payment done
-                                   // print('order id: '+number);
-
-                                  },
-                                ),
-                              ),
-                            );
+            Container(
+              //color: Colors.cyan,
 
 
+             // color: transparentBlack,
+//      color: Colors.grey.withAlpha(75),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: Row(
 
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (BuildContext context) => UsePaypal(
-                            //         sandboxMode: true,
-                            //         clientId:
-                            //         "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
-                            //         secretKey:
-                            //         "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-                            //         returnURL: "https://samplesite.com/return",
-                            //         cancelURL: "https://samplesite.com/cancel",
-                            //         transactions: [
-                            //           {
-                            //             "amount": {
-                            //               "total": widget.total,
-                            //               "currency": "USD",
-                            //               "details": {
-                            //                 "subtotal":  widget.total,
-                            //                 "shipping": '0',
-                            //                 "shipping_discount": 0
-                            //               }
-                            //             },
-                            //
-                            //             "description":
-                            //             "The payment transaction description.",
-                            //             "payment_options": {
-                            //               "allowed_payment_method":
-                            //                   "INSTANT_FUNDING_SOURCE"
-                            //             },
-                            //             "item_list": {
-                            //               "items": [
-                            //                 {
-                            //                   "name": "A demo product",
-                            //                   "quantity": 1,
-                            //                   "price": widget.total,
-                            //                   "currency": "USD"
-                            //                 }
-                            //               ],
-                            //
-                            //               // shipping address is not required though
-                            //               "shipping_address": {
-                            //                 "recipient_name": "Jane Foster",
-                            //                 "line1": "Travis County",
-                            //                 "line2": "",
-                            //                 "city": "Austin",
-                            //                 "country_code": "US",
-                            //                 "postal_code": "73301",
-                            //                 "phone": "+00000000",
-                            //                 "state": "Texas"
-                            //               },
-                            //             }
-                            //           }
-                            //         ],
-                            //         note: "Contact us for any questions on your order.",
-                            //         onSuccess: (Map params) async {
-                            //           print("onSuccess: $params");
-                            //         },
-                            //         onError: (error) {
-                            //           print("onError: $error");
-                            //         },
-                            //         onCancel: (params) {
-                            //           print('cancelled: $params');
-                            //         }),
-                            //   ),
-                            // );
-                            _checkOutBloc.checkout(
-                              userId.toString(),
-                              _signUpBloc.nameController.text,
-                              _signUpBloc.emailController.text,
-                              _signUpBloc.mobileController.text,
-                              widget.total.toString(),
-                              dropdownValueforPayment,
-                              context,
-                            );
-
-                            Timer(Duration(seconds: 2), () {
-                              _checkOutBloc.statuss == true
-                                  ? payNow(context)
-                                  : ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text("Something went wrong"),
-                              ));
-                            });
+                mainAxisAlignment: MainAxisAlignment.center,
 
 
-                          }
-                        }),
-                      ],
+                children: [
+                  InkWell(
+                    onTap: () async {
+            print("checkout button------------------");
+            setState(() {
+            loader = true;
+            });
+            final SharedPreferences prefs =
+            await SharedPreferences.getInstance();
+            int userId = prefs.getInt(ClubApp.userId);
+
+            if (_signUpBloc.nameController.text.isEmpty) {
+            setState(() {
+            loader = false;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Please Enter Name")));
+            } else {
+            if(userId == null){
+            Navigator.push(
+            context,
+            MaterialPageRoute(
+            builder: (context) => LoginScreen('cart')));
+
+            }else{
+            _checkOutBloc.checkout(
+            userId.toString(),
+            _signUpBloc.nameController.text,
+            _signUpBloc.emailController.text,
+            _signUpBloc.mobileController.text,
+            widget.total.toString(),
+            dropdownValueforPayment,
+            context,
+            );
+
+
+            Timer(Duration(seconds: 2), () {
+            _checkOutBloc.statuss == true;
+            // Future.delayed(Duration(seconds: 10), (){
+            // completePayment(
+            //   "EUR",
+            //   widget.total.toString(),
+            //   "pid",
+            //   _checkOutBloc.checkoutModel.data.orderId,
+            //   "succeeded",
+            // );
+            //
+            // });
+
+            Navigator.of(context).push(
+            MaterialPageRoute(
+            builder: (BuildContext context) =>
+            PaypalPayment(amount: widget.total.toString(),
+            dropdownValue:  dropdownValueforExpectedArrival,
+            name:  _signUpBloc.nameController.text,
+            email: _signUpBloc.emailController.text,
+            orderId: _checkOutBloc.checkoutModel.data.orderId,
+            guestId: _checkOutBloc.checkoutModel.data.guestId.toString(),
+            userId:  userId.toString(),
+            ),
+            ),
+            );
+            // ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(
+            // content: Text("Something went wrong"),
+            // )
+            // );
+            });
+            }
+
+            }
+            },
+                    child: Container(
+
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: 36,
+                     // height: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          border: Border.all(
+                            color: colorAccent,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Center(
+                          child: Text(
+                            ClubApp.Proceed_to_pay,style: TextStyle(color: Colors.white,fontSize: 20),
+
+                          ),
+                        ),
+                      ),
                     ),
+                  ),
+                ],
+              ),
+            ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     OutlineBorderButton(
+                    //
+                    //         buttonBackground,
+                    //         12.0,
+                    //         32.0,
+                    //         ClubApp.Proceed_to_pay,
+                    //         Theme.of(context).textTheme.subtitle1.apply(
+                    //             color: Colors.white), onPressed: () async {
+                    //       print("checkout button------------------");
+                    //       setState(() {
+                    //         loader = true;
+                    //       });
+                    //       final SharedPreferences prefs =
+                    //           await SharedPreferences.getInstance();
+                    //       int userId = prefs.getInt(ClubApp.userId);
+                    //
+                    //       if (_signUpBloc.nameController.text.isEmpty) {
+                    //         setState(() {
+                    //           loader = false;
+                    //         });
+                    //         ScaffoldMessenger.of(context).showSnackBar(
+                    //             SnackBar(content: Text("Please Enter Name")));
+                    //       } else {
+                    //         if(userId == null){
+                    //           Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                   builder: (context) => LoginScreen('cart')));
+                    //
+                    //         }else{
+                    //           _checkOutBloc.checkout(
+                    //             userId.toString(),
+                    //             _signUpBloc.nameController.text,
+                    //             _signUpBloc.emailController.text,
+                    //             _signUpBloc.mobileController.text,
+                    //             widget.total.toString(),
+                    //             dropdownValueforPayment,
+                    //             context,
+                    //           );
+                    //
+                    //
+                    //           Timer(Duration(seconds: 2), () {
+                    //             _checkOutBloc.statuss == true;
+                    //             Future.delayed(Duration(seconds: 10), (){
+                    //               // completePayment(
+                    //               //   dropdownValueforExpectedArrival,
+                    //               //   _signUpBloc.nameController.text,
+                    //               //   "EUR",
+                    //               //   _signUpBloc.emailController.text,
+                    //               //   widget.total.toString(),
+                    //               //   "pid",
+                    //               //   _checkOutBloc.checkoutModel.data.orderId,
+                    //               //   _checkOutBloc.checkoutModel.data.guestId.toString(),
+                    //               //   userId.toString(),
+                    //               //   "succeeded",
+                    //               // );
+                    //
+                    //             });
+                    //
+                    //             Navigator.of(context).push(
+                    //               MaterialPageRoute(
+                    //                 builder: (BuildContext context) =>
+                    //                     PaypalPayment(amount: widget.total.toString(),
+                    //                       dropdownValue:  dropdownValueforExpectedArrival,
+                    //                       name:  _signUpBloc.nameController.text,
+                    //                       email: _signUpBloc.emailController.text,
+                    //                       orderId: _checkOutBloc.checkoutModel.data.orderId,
+                    //                         guestId: _checkOutBloc.checkoutModel.data.guestId.toString(),
+                    //                         userId:  userId.toString(),
+                    //                       // total: (number) async {
+                    //                       //
+                    //                       // },
+                    //                     ),
+                    //               ),
+                    //             );
+                    //
+                    //
+                    //                // ? payNow(context)
+                    //                  ScaffoldMessenger.of(context)
+                    //                 .showSnackBar(SnackBar(
+                    //               content: Text("Something went wrong"),
+                    //             )
+                    //             );
+                    //           });
+                    //
+                    //         }
+                    //
+                    //
+                    //
+                    //
+                    //       }
+                    //     }),
+                    //   ],
+                    // ),
                     SizedBox(height: 10),
                   ],
                 ),
+
                 // loader
                 //     ? Container(
                 //         margin: EdgeInsets.only(
@@ -756,9 +864,16 @@ class _CheckoutState extends State<Checkout> {
                 //     : Container(),
               ],
             ),
+
           ),
+
         ),
+
       ),
+
+
     );
+
   }
+
 }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/repository/club_app_repository.dart';
-import 'package:club_app/ui/utils/utils.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/repository/club_app_repository.dart';
+import 'package:TIBU/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart';

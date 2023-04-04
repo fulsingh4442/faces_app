@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:club_app/constants/strings.dart';
+import 'package:TIBU/constants/strings.dart';
 import 'package:flutter/cupertino.dart';
 
 CartTableEventResponse cartTableEventResponseFromJson(String str) =>

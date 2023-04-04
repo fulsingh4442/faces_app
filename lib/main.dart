@@ -3,16 +3,17 @@ import 'dart:io';
 
 
 
-import 'package:club_app/paypal1/Transaction.dart';
-import 'package:club_app/ui/screens/vouchers/success.dart';
+import 'package:TIBU/payment.dart';
+import 'package:TIBU/paypal1/Transaction.dart';
+import 'package:TIBU/ui/screens/vouchers/success.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:club_app/ui/screens/login.dart';
-import 'package:club_app/ui/screens/splash.dart';
-import 'package:club_app/constants/constants.dart';
+import 'package:TIBU/ui/screens/login.dart';
+import 'package:TIBU/ui/screens/splash.dart';
+import 'package:TIBU/constants/constants.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -26,6 +27,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
 
   //Assign publishable key to flutter_stripe
@@ -33,7 +35,7 @@ void main() async {
   print("pub key is: ${prefs.getString('public_key')}");
   Stripe.publishableKey = prefs.getString('public_key');
   await Firebase.initializeApp(
-    name: "Luna",
+    name: "TIBU",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -147,7 +149,7 @@ class MyApp extends StatelessWidget {
             TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 14.0),
           )),
       home: SplashScreen(),
-     // home: makePayment(),
+     // home: Success(),
       navigatorObservers: [routeObserver],
     ));
   }

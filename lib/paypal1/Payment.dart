@@ -1,48 +1,63 @@
 import 'dart:core';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/bloc/add_on_bloc.dart';
-import 'package:club_app/logic/bloc/create_payment_bloc.dart';
-import 'package:club_app/logic/bloc/sign_up_bloc.dart';
-import 'package:club_app/paypal1/Services.dart';
-import 'package:club_app/ui/screens/vouchers/failed.dart';
-import 'package:club_app/ui/screens/vouchers/success.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/bloc/add_on_bloc.dart';
+import 'package:TIBU/logic/bloc/create_payment_bloc.dart';
+import 'package:TIBU/logic/bloc/sign_up_bloc.dart';
+import 'package:TIBU/paypal1/Services.dart';
+import 'package:TIBU/ui/screens/vouchers/failed.dart';
+import 'package:TIBU/ui/screens/vouchers/success.dart';
+import 'package:TIBU/ui/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class PaypalPayment extends StatefulWidget {
 
-  double total;
-  //Checkout(this.total);
-  final Function onFinish;
+  String amount;
+  String dropdownValue;
+  String name;
+  String email;
+  String orderId;
+  String guestId;
+  String userId;
 
-  PaypalPayment({this.onFinish});
-
+  PaypalPayment({this.amount,this.dropdownValue,this.name,this.email,this.orderId,this.guestId,this.userId});
   @override
   State<StatefulWidget> createState() {
     return PaypalPaymentState();
   }
 }
-
 class PaypalPaymentState extends State<PaypalPayment> {
 
-  SignUpBloc _signUpBloc;
-  CheckOutBloc _checkOutBloc;
-  AddOnsBloc _addOnsBloc;
-  double totalAmount = 0.0;
-  String currency = ClubApp.currencyLbl;
-  static String id = 'exploreScreen';
-  bool loader = false;
+  Future<Response> completePayment(
+      String currency,
+      String amount,
+      String balanceTransaction,
+      String orderId,
+      String status,
+      ) async {
+    Map<String, dynamic> body = <String, dynamic>{
+      'currency': currency,
+      'amount': amount,
+      'balance_transaction': balanceTransaction,
+      'order_id': orderId,
+      'status': status,
+    };
+    debugPrint(
+        'Calling Complete payment profile api ---->  ${ClubApp().complete_payment} with body $body');
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _checkOutBloc = CheckOutBloc();
-  //   _signUpBloc = SignUpBloc();
-  //  // handleProfileAPI();
-  //   //StripeService.init();
-  // }
+    final Response response =
+    await http.post(Uri.parse(ClubApp().complete_payment), body: body);
+    print(response);
+    return response;
+  }
+
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String checkoutUrl;
   String executeUrl;
@@ -96,26 +111,30 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
 
   // item name, price and quantity
-  String itemName = 'iPhone X';
-  String itemPrice = '1.99';
+
+  String itemName = 'Tables ';
+  String itemPrice = '300';
   int quantity = 1;
 
   Map<String, dynamic> getOrderParams() {
+
+
+
     List items = [
       {
         "name": itemName,
         "quantity": quantity,
-        "price": itemPrice,
-        "currency": defaultCurrency["currency"]
-
+        "price": '${widget.amount}',
+        "currency":
+        defaultCurrency["currency"]
       }
     ];
     // checkout invoice details
-    String totalAmount = '1.99';
-    String subTotalAmount = '1.99';
+    String totalAmount = '${widget.amount}';
+    String subTotalAmount = '${widget.amount}';
     String shippingCost = '0';
     int shippingDiscountCost = 0;
-    String userFirstName = 'Gulshan';
+    String userFirstName = '${widget.name}';
     String userLastName = 'Yadav';
     String addressCity = 'Delhi';
     String addressStreet = 'Mathura Road';
@@ -129,11 +148,12 @@ class PaypalPaymentState extends State<PaypalPayment> {
       "payer": {"payment_method": "paypal"},
       "transactions": [
         {
+
           "amount": {
-            "total": totalAmount,
-            "currency": defaultCurrency["currency"],
+            "total": '${widget.amount}',
+            "currency":  defaultCurrency["currency"],
             "details": {
-              "subtotal": subTotalAmount,
+              "subtotal": '${widget.amount}',
               "shipping": shippingCost,
               "shipping_discount":
               ((-1.0) * shippingDiscountCost).toString()
@@ -189,7 +209,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
         body: WebView(
           initialUrl: checkoutUrl,
           javascriptMode: JavascriptMode.unrestricted,
-          navigationDelegate: (NavigationRequest request) {
+          navigationDelegate: (NavigationRequest request) async {
             if (request.url.contains(returnURL)) {
               final uri = Uri.parse(request.url);
               final payerID = uri.queryParameters['PayerID'];
@@ -197,20 +217,23 @@ class PaypalPaymentState extends State<PaypalPayment> {
                 services
                     .executePayment(executeUrl, payerID, accessToken)
                     .then((id) {
-                  widget.onFinish(id);
+                  widget.amount;
                   Navigator.of(context).pop();
 
                 });
               } else {
-
-
-                //Navigator.of(context).pop();
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => failed()), (route) => false);
                 print("payment not succses");
               }
-             // Navigator.of(context).pop();
-              print("payment not succses3");
+              print("payment succses3");
               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Success()), (route) => false);
+              completePayment(
+                "EUR",
+                widget.amount,
+                "pid",
+                widget.orderId,
+                "succeeded",
+              );
             }
             if (request.url.contains(cancelURL)) {
               Navigator.of(context).pop();

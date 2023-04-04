@@ -1,16 +1,16 @@
 
 import 'dart:typed_data';
 
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/constants/validator.dart';
-import 'package:club_app/logic/bloc/sign_up_bloc.dart';
-import 'package:club_app/ui/screens/login.dart';
-import 'package:club_app/ui/screens/select_branch.dart';
-import 'package:club_app/ui/utils/utils.dart';
-import 'package:club_app/ui/widgets/button_rounded_border.dart';
-import 'package:club_app/ui/widgets/custom_text_field.dart';
-import 'package:club_app/ui/widgets/photo_selector.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/constants/validator.dart';
+import 'package:TIBU/logic/bloc/sign_up_bloc.dart';
+import 'package:TIBU/ui/screens/login.dart';
+import 'package:TIBU/ui/screens/select_branch.dart';
+import 'package:TIBU/ui/utils/utils.dart';
+import 'package:TIBU/ui/widgets/button_rounded_border.dart';
+import 'package:TIBU/ui/widgets/custom_text_field.dart';
+import 'package:TIBU/ui/widgets/photo_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';

@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:club_app/constants/constants.dart';
-import 'package:club_app/constants/navigator.dart';
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/ui/screens/select_branch.dart';
-import 'package:club_app/ui/screens/table/table_cart_old.dart';
-import 'package:club_app/ui/widgets/outline_border_button.dart';
+import 'package:TIBU/constants/constants.dart';
+import 'package:TIBU/constants/navigator.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/ui/screens/select_branch.dart';
+import 'package:TIBU/ui/screens/table/table_cart_old.dart';
+import 'package:TIBU/ui/widgets/outline_border_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -49,33 +49,80 @@ class _TableNewScreenState extends State<TableNewScreen> {
       child: Scaffold(
         bottomNavigationBar: BottomAppBar(
           color: appBackgroundColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: OutlineBorderButton(
-                    buttonBackground,
-                    8.0,
-                    32.0,
-                    ClubApp.btn_proceed,
-                    Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        .apply(color: Colors.white), onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (BuildContext context) => TableCart(false)
-                  //   ),
-                  // );
-                  AppNavigator.gotoAddOns(context);
-                }),
+          child:
+          Container(
+            //color: Colors.cyan,
+
+
+            // color: transparentBlack,
+//      color: Colors.grey.withAlpha(75),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.center,
+
+
+              children: [
+                InkWell(
+                  onTap: () async {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => TableCart(false)
               ),
-              /*const SizedBox(
-                      width: 8,
-                    ),*/
-            ],
+            );
+            AppNavigator.gotoAddOns(context);
+          },
+                  child: Container(
+
+                    width: MediaQuery.of(context).size.width * 0.50,
+                    height: 36,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                          color: colorAccent,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Center(
+                        child: Text(
+                            ClubApp.btn_proceed,style: TextStyle(color: Colors.white,fontSize: 20),
+
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.all(8),
+          //       child: OutlineBorderButton(
+          //           buttonBackground,
+          //           8.0,
+          //           32.0,
+          //           ClubApp.btn_proceed,
+          //           Theme.of(context)
+          //               .textTheme
+          //               .subtitle1
+          //               .apply(color: Colors.white), onPressed: () {
+          //         // Navigator.of(context).push(
+          //         //   MaterialPageRoute(
+          //         //     builder: (BuildContext context) => TableCart(false)
+          //         //   ),
+          //         // );
+          //         AppNavigator.gotoAddOns(context);
+          //       }),
+          //     ),
+          //     /*const SizedBox(
+          //             width: 8,
+          //           ),*/
+          //   ],
+          // ),
         ),
         body: SafeArea(
           child: FutureBuilder<String>(

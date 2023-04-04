@@ -1,5 +1,5 @@
-import 'package:club_app/constants/strings.dart';
-import 'package:club_app/logic/models/add_on_model.dart';
+import 'package:TIBU/constants/strings.dart';
+import 'package:TIBU/logic/models/add_on_model.dart';
 
 class TableCartResponse {
   TableCartResponse.fromJson(Map<String, dynamic> jsonMap) {

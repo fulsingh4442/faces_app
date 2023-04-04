@@ -1,6 +1,6 @@
 // import 'package:firebase_messaging/firebase_messaging.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:club_app/constants/strings.dart';
+// import 'package:TIBU/constants/strings.dart';
 
 // class PushNotificationsManager {
 //   PushNotificationsManager._();
